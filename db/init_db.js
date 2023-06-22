@@ -38,7 +38,7 @@ async function createTables() {
 
       CREATE TABLE cars (
         id SERIAL PRIMARY KEY,
-        manufacturer VARCHAR(255) UNIQUE NOT NULL,
+        manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) UNIQUE NOT NULL,
         type VARCHAR(255) NOT NULL
       );
