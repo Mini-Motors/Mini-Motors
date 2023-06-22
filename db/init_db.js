@@ -5,6 +5,8 @@ const {
 } = require('./');
 
 
+client.connect();
+
 //! DROP TABLES
 async function dropTables() {
   console.log("Dropping All Tables...")
