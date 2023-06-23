@@ -2,7 +2,8 @@ const {
   client,
   createInitialListings,
   createInitialCars,
-  createInitialUsers
+  createInitialUsers,
+  createInitialCarListings
 } = require('./');
 
 
@@ -77,6 +78,7 @@ async function populateInitialData() {
     await createInitialUsers();
     await createInitialCars();
     await createInitialListings();
+    await createInitialCarListings();
   } catch (error) {
     throw error;
   }

@@ -16,9 +16,9 @@ async function createInitialCars() {
       { manufacturer: "Ford", model: "SUV", type: "Foreign"},
       { manufacturer: "Ford", model: "FullSize ", type: "Foreign" },
       { manufacturer: "Ford", model: "Compact", type: "Domestic", },
-      { manufacturer: "Dodge/Ram", model: "SUV", type: "Domestic" },
-      { manufacturer: "Dodge/Ram", model: "FullSize", type: "Domestic" },
-      { manufacturer: "Dodge/Ram", model: "Compact", type: "Foreign" },
+      { manufacturer: "Dodge", model: "SUV", type: "Domestic" },
+      { manufacturer: "Dodge", model: "FullSize", type: "Domestic" },
+      { manufacturer: "Dodge", model: "Compact", type: "Foreign" },
       { manufacturer: "Nissan", model: "SUV", type: "Foreign" },
       { manufacturer: "Nissan", model: "FullSize", type: "Foreign" },
       { manufacturer: "Nissan", model: "Compact", type: "Foreign" },
@@ -67,16 +67,16 @@ async function createInitialCars() {
   console.log("Starting to create Listings...")
   try {
     const listingsToCreate = [
-      { creatorId: 1, name: "Test Listing 1", price: "100.00", color: "red" },
-      { creatorId: 1, name: "Test Listing 2", price: "200.00", color: "red" },
-      { creatorId: 2, name: "Test Listing 3", price: "300.00", color: "red" },
-      { creatorId: 2, name: "Test Listing 4", price: "400.00", color: "red" },
-      { creatorId: 3, name: "Test Listing 5", price: "500.00", color: "red" },
-      { creatorId: 3, name: "Test Listing 6", price: "600.00", color: "red" },
-      { creatorId: 4, name: "Test Listing 7", price: "700.00", color: "red" },
-      { creatorId: 5, name: "Test Listing 8", price: "800.00", color: "red" },
-      { creatorId: 6, name: "Test Listing 9", price: "900.00", color: "red" },
-      { creatorId: 7, name: "Test Listing 10", price: "1000.00", color: "red" },
+      { creatorId: 1, name: "Listing1", price: "100.00", color: "red" },
+      { creatorId: 1, name: "Listing2", price: "200.00", color: "red" },
+      { creatorId: 2, name: "Listing3", price: "300.00", color: "red" },
+      { creatorId: 2, name: "Listing4", price: "400.00", color: "red" },
+      { creatorId: 3, name: "Listing5", price: "500.00", color: "red" },
+      { creatorId: 3, name: "Listing6", price: "600.00", color: "red" },
+      { creatorId: 4, name: "Listing7", price: "700.00", color: "red" },
+      { creatorId: 5, name: "Listing8", price: "800.00", color: "red" },
+      { creatorId: 6, name: "Listing9", price: "900.00", color: "red" },
+      { creatorId: 7, name: "Listing10", price: "1000.00", color: "red" },
     ];
     const listings = await Promise.all(listingsToCreate.map(createListing))
     console.log("Listings created:")
@@ -89,10 +89,125 @@ async function createInitialCars() {
 }
 
 //! POPULATE CARS_LISTINGS TABLE WITH TEST DATA
+async function createInitialCarListings() {
+  console.log("starting to create car listings...");
+
+  const [ listing1, 
+    listing2, 
+    listing3, 
+    listing4, 
+    listing5, 
+    listing6, 
+    listing7, 
+    listing8, 
+    listing9, 
+    listing10 ] = await getListingsWithoutCars();
+
+  const [ chevrolet, 
+    ford, 
+    dodge, 
+    nissan, 
+    toyota, 
+    acura ] = await getAllCars();
+
+  const carListingsToCreate = [
+    {
+      carId: chevrolet.id,
+      listingId: listing1.id,
+      extendedPrice: null
+    },
+    {
+      carId: chevrolet.id,
+      listingId: listing1.id,
+      extendedPrice: null
+    },
+    {
+      carId: chevrolet.id,
+      listingId: listing2.id,
+      extendedPrice: null
+    },
+    {
+      carId: ford.id,
+      listingId: listing3.id,
+      extendedPrice: null
+    },
+    {
+      carId: ford.id,
+      listingId: listing4.id,
+      extendedPrice: null
+    },
+    {
+      carId: ford.id,
+      listingId: listing5.id,
+      extendedPrice: null
+    },
+    {
+      carId: dodge.id,
+      listingId: listing6.id,
+      extendedPrice: null
+    },
+    {
+      carId: dodge.id,
+      listingId: listing7.id,
+      extendedPrice: null
+    },
+    {
+      carId: nissan.id,
+      listingId: listing8.id,
+      extendedPrice: null
+    },
+    {
+      carId: nissan.id,
+      listingId: listing9.id,
+      extendedPrice: null
+    },
+    {
+      carId: nissan.id,
+      listingId: listing10.id,
+      extendedPrice: null
+    },
+    {
+      carId: toyota.id,
+      listingId: listing1.id,
+      extendedPrice: null
+    },
+    {
+      carId: toyota.id,
+      listingId: listing2.id,
+      extendedPrice: null
+    },
+    {
+      carId: toyota.id,
+      listingId: listing3.id,
+      extendedPrice: null
+    },
+    {
+      carId: acura.id,
+      listingId: listing4.id,
+      extendedPrice: null
+    },
+    {
+      carId: acura.id,
+      listingId: listing5.id,
+      extendedPrice: null
+    },
+    {
+      carId: acura.id,
+      listingId: listing6.id,
+      extendedPrice: null
+    },
+  ]
+  const carListings = await Promise.all(
+    carListingsToCreate.map(addCarToListing)
+  )
+  console.log("Car Listings created: ", carListings)
+  console.log("Finished creating car listings!")
+}
 
 
 module.exports = {
   createInitialUsers,
   createInitialCars,
-  createInitialListings
+  createInitialListings,
+  createInitialCarListings
 };
