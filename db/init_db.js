@@ -1,6 +1,7 @@
 const {
   client,
   createCar,
+  createUser,
   // declare your model imports here
   // for example, User
 } = require('./');
@@ -116,12 +117,39 @@ async function createInitialCars() {
       }
     }
 
+ async function createInitialUsers() {
+  console.log("Starting to create users...")
+  try {
+    const usersToCreate = [
+      { username: "John Doe", password: "johndoe" },
+      { username: "Tim Jones", password: "timjones" },
+      { username: "Mark Noone", password: "alisonany" },
+      { username: "John Doe", password: "alisonany" },
+      { username: "Andy Last", password: "andylast" },
+      { username: "Kathy First", password: "kathyfirst" },
+      { username: "Anyone Else", password: "anyoneelse" },
+    ];
+
+    const users = await Promise.all(usersToCreate.map(createUser))
+
+    console.log("Users created:")
+    console.log(users)
+    console.log("Finished creating users!")
+  } catch (error) {
+    console.error("Error creating users!")
+    throw error
+  }
+}   
+
 async function populateInitialData() {
   try {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
+
     await createInitialCars();
+    await createInitialUsers();
+
   } catch (error) {
     throw error;
   }

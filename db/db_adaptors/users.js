@@ -9,7 +9,7 @@ async function createUser({ username, password }) {
       ON CONFLICT (username) DO NOTHING
       RETURNING *;
     `, [ username, password ]);
-    delete user.password;
+    // delete user.password;
     return user;
   } catch (error) {
     console.error("Error creating user!", error);
