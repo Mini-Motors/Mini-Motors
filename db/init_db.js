@@ -38,19 +38,21 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) NOT NULL,
-        type VARCHAR(255) NOT NULL,
-        color VARCHAR(255) NOT NULL
+        type VARCHAR(255) NOT NULL
+        
       );
       CREATE TABLE listings (
         id SERIAL PRIMARY KEY,
         "creatorId" INTEGER REFERENCES users(id),
-        price VARCHAR(255) NOT NULL,
-        description VARCHAR(255)
+        name VARCHAR(255),
+        price VARCHAR(255) NOT NULL
       );
       CREATE TABLE car_listings (
         id SERIAL PRIMARY KEY, 
         "carId" INTEGER REFERENCES cars(id),
         "listingId" INTEGER REFERENCES listings(id),
+        color VARCHAR(255) NOT NULL,
+        "extendedPrice" VARCHAR(255),
         UNIQUE ("carId", "listingId")
       );
     `);
@@ -77,8 +79,9 @@ async function buildTables() {
 //! POPULATE INITIAL TABLE DATA 
 async function populateInitialData() {
   try {
-    await createInitialCars();
     await createInitialUsers();
+    await createInitialCars();
+    await createInitialListings();
   } catch (error) {
     throw error;
   }
