@@ -14,6 +14,21 @@ async function createListing({ creatorId, name, color, price }) {
   }
 }
 
+async function getListingsWithoutCars() {
+  try {
+    const { rows } = await client.query(/*sql*/`
+      SELECT * 
+      FROM listings    
+    `);
+    return rows;
+  } catch (error) {
+    console.error("Error getting listings without a car!", error);
+    throw error;
+  }
+}
+
+
 module.exports = {
-  createListing
+  createListing,
+  getListingsWithoutCars
 };

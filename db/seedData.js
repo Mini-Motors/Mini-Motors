@@ -2,7 +2,9 @@ const {
   createCar,
   createUser,
   createListing,
-  addCarToListing
+  addCarToListing,
+  getListingsWithoutCars,
+  getAllCars
 } = require('./db_adaptors');
 
 //! POPULATE THE CARS TABLE WITH TEST DATA (activities)
@@ -112,22 +114,22 @@ async function createInitialCarListings() {
 
   const carListingsToCreate = [
     { carId: chevrolet.id, listingId: listing1.id, extendedPrice: null },
-    { carId: chevrolet.id, listingId: listing1.id, extendedPrice: null },
     { carId: chevrolet.id, listingId: listing2.id, extendedPrice: null },
-    { carId: ford.id, listingId: listing3.id, extendedPrice: null },
+    { carId: chevrolet.id, listingId: listing3.id, extendedPrice: null },
     { carId: ford.id, listingId: listing4.id, extendedPrice: null },
     { carId: ford.id, listingId: listing5.id, extendedPrice: null },
-    { carId: dodge.id, listingId: listing6.id, extendedPrice: null },
+    { carId: ford.id, listingId: listing6.id, extendedPrice: null },
     { carId: dodge.id, listingId: listing7.id, extendedPrice: null },
-    { carId: nissan.id, listingId: listing8.id, extendedPrice: null },
+    { carId: dodge.id, listingId: listing8.id, extendedPrice: null },
     { carId: nissan.id, listingId: listing9.id, extendedPrice: null },
     { carId: nissan.id, listingId: listing10.id, extendedPrice: null },
-    { carId: toyota.id, listingId: listing1.id, extendedPrice: null },
+    { carId: nissan.id, listingId: listing1.id, extendedPrice: null },
     { carId: toyota.id, listingId: listing2.id, extendedPrice: null },
     { carId: toyota.id, listingId: listing3.id, extendedPrice: null },
-    { carId: acura.id, listingId: listing4.id, extendedPrice: null },
+    { carId: toyota.id, listingId: listing4.id, extendedPrice: null },
     { carId: acura.id, listingId: listing5.id, extendedPrice: null },
-    { carId: acura.id, listingId: listing6.id, extendedPrice: null }
+    { carId: acura.id, listingId: listing6.id, extendedPrice: null },
+    { carId: acura.id, listingId: listing7.id, extendedPrice: null }
   ];
 
   const carListings = await Promise.all(

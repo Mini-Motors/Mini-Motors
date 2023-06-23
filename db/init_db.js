@@ -52,7 +52,7 @@ async function createTables() {
         "carId" INTEGER REFERENCES cars(id),
         "listingId" INTEGER REFERENCES listings(id),
         "extendedPrice" VARCHAR(255),
-        UNIQUE ("carId", "listingId")
+        UNIQUE("carId", "listingId")
       );
     `);
   } catch (error) {

@@ -14,6 +14,21 @@ async function createCar({ manufacturer, model, type }) {
   }
 }
 
+async function getAllCars() {
+  // select and return an array of all activities
+  try {
+    const { rows } = await client.query(/*sql*/`
+      SELECT * 
+      FROM cars   
+    `);
+    return rows;
+  } catch (error) {
+    console.error("Error getting all cars!", error);
+    throw error;
+  }
+}
+
 module.exports = {
   createCar,
+  getAllCars
 };
