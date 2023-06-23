@@ -5,7 +5,7 @@ const {
   addCarToListing
 } = require('./db_adaptors');
 
-//! POPULATE THE CARS TABLE WITH TEST DATA (Activities)
+//! POPULATE THE CARS TABLE WITH TEST DATA (activities)
 async function createInitialCars() {
   console.log("Starting to create cars...")
   try {
@@ -39,7 +39,7 @@ async function createInitialCars() {
   }
 }
 
-//! POPULATE THE USERS TABLE WITH TEST DATA (Users)
+//! POPULATE THE USERS TABLE WITH TEST DATA (users)
  async function createInitialUsers() {
   console.log("Starting to create users...")
   try {
@@ -62,7 +62,7 @@ async function createInitialCars() {
   }
 }
 
-//! POPULATE THE LISTINGS TABLE WITH TEST DATA (Routines)
+//! POPULATE THE LISTINGS TABLE WITH TEST DATA (routines)
  async function createInitialListings() {
   console.log("Starting to create Listings...")
   try {
@@ -88,7 +88,7 @@ async function createInitialCars() {
   }
 }
 
-//! POPULATE CARS_LISTINGS TABLE WITH TEST DATA
+//! POPULATE CARS_LISTINGS TABLE WITH TEST DATA (routine_activities)
 async function createInitialCarListings() {
   console.log("starting to create car listings...");
 
@@ -133,9 +133,9 @@ async function createInitialCarListings() {
   const carListings = await Promise.all(
     carListingsToCreate.map(addCarToListing)
   );
-  
-  console.log("Car Listings created: ", carListings)
-  console.log("Finished creating car listings!")
+
+  console.log("Car Listings created: ", carListings);
+  console.log("Finished creating car listings!");
 }
 
 
