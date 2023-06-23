@@ -1,18 +1,19 @@
 const {
   client,
-  // declare your model imports here
-  // for example, User
+  createInitialListings,
+  createInitialCars,
+  createInitialUsers,
+  createInitialCarListings,
+  subtotal
 } = require('./');
 
-
-client.connect();
 
 //! DROP TABLES
 async function dropTables() {
   console.log("Dropping All Tables...")
-  // drop all tables, in the correct order
   try {
     await client.query(/*sql*/`
+      DROP TABLE IF EXISTS car_listings;
       DROP TABLE IF EXISTS listings;
       DROP TABLE IF EXISTS cars;
       DROP TABLE IF EXISTS users;
@@ -26,33 +27,34 @@ async function dropTables() {
 //! CREATE TABLES
 async function createTables() {
   console.log("Starting to build tables...")
-  // create all tables, in the correct order
   try {
     await client.query(/*sql*/`
-    
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL  
       );
-
       CREATE TABLE cars (
         id SERIAL PRIMARY KEY,
         manufacturer VARCHAR(255) NOT NULL,
-        model VARCHAR(255) UNIQUE NOT NULL,
-        type VARCHAR(255) NOT NULL,
-        color VARCHAR(255) NOT NULL
+        model VARCHAR(255) NOT NULL,
+        type VARCHAR(255) NOT NULL
+        
       );
-
       CREATE TABLE listings (
         id SERIAL PRIMARY KEY,
-        "carId" INTEGER REFERENCES cars(id),
-        "userId" INTEGER REFERENCES users(id),
-        price VARCHAR(255) NOT NULL,
-        description VARCHAR(255),
-        UNIQUE ("carId", "userId")
+        "creatorId" INTEGER REFERENCES users(id),
+        name VARCHAR(255),
+        color VARCHAR(255) NOT NULL,
+        price VARCHAR(255) NOT NULL
       );
-
+      CREATE TABLE car_listings (
+        id SERIAL PRIMARY KEY, 
+        "carId" INTEGER REFERENCES cars(id),
+        "listingId" INTEGER REFERENCES listings(id),
+        "extendedPrice" VARCHAR(255),
+        UNIQUE("carId", "listingId")
+      );
     `);
   } catch (error) {
     console.error('Error building tables!');
@@ -63,30 +65,22 @@ async function createTables() {
 //! BUILD TABLES
 async function buildTables() {
   try {
-
-    /* connect to client */
     client.connect();
-
-    /* drop tables in correct order */
-    dropTables();
-   
-    /* build tables in correct order */
-    buildTables();
-      
+    await dropTables();
+    await createTables();   
   } catch (error) {
     throw error;
   }
 }
 
-
+//! POPULATE INITIAL TABLE DATA 
 async function populateInitialData() {
   try {
-    // create useful starting data by leveraging your
-    // Model.method() adapters to seed your db, for example:
-    // const user1 = await User.createUser({ ...user info goes here... })
-
-    await buildTables();
-
+    await createInitialUsers();
+    await createInitialCars();
+    await createInitialListings();
+    await createInitialCarListings();
+    await subtotal();
   } catch (error) {
     throw error;
   }

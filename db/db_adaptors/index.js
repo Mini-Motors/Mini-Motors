@@ -7,10 +7,10 @@
 
 
 module.exports = {
-  // ...require('./client'), // adds key/values from users.js
-  ...require('./cars'), // adds key/values from users.js
-  ...require('./listings'), // adds key/values from activities.js
-  ...require('./users'), // etc
+  ...require('./cars'), 
+  ...require('./listings'), 
+  ...require('./users'), 
+  ...require('./car_listings') 
 }
 
 

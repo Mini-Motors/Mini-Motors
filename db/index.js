@@ -1,4 +1,7 @@
+const client = require('./client');
+
 module.exports = {
-  ...require('./client'),
-  ...require('./db_adaptors')
+  client,
+  ...require('./db_adaptors'),
+  ...require('./seedData')
 };
