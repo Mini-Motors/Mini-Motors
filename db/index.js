@@ -1,5 +1,5 @@
 const client = require('./client');
-const models = require('./db_adaptors');
+const db_adaptors = require('./db_adaptors');
 
 module.exports = {
   client,
