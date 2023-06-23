@@ -1,8 +1,8 @@
 const {
   client,
-  addCarToListing,
+  createInitialListings,
   createInitialCars,
-  createInitialUsers,
+  createInitialUsers
 } = require('./');
 
 

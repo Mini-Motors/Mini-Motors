@@ -1,6 +1,7 @@
 const {
   createCar,
-  createUser
+  createUser,
+  addCarToListing
 } = require('./db_adaptors');
 
 //! POPULATE THE CARS TABLE WITH TEST DATA
@@ -37,7 +38,7 @@ async function createInitialCars() {
   }
 }
 
-//! POPULATE HTE USERS TABLE WITH TEST DATA
+//! POPULATE THE USERS TABLE WITH TEST DATA
  async function createInitialUsers() {
   console.log("Starting to create users...")
   try {
@@ -58,9 +59,33 @@ async function createInitialCars() {
     console.error("Error creating users!")
     throw error
   }
-} 
+}
+
+//! POPULATE THE LISTINGS TABLE WITH TEST DATA
+ async function createInitialListings() {
+  console.log("Starting to create Listings...")
+  try {
+    const listingsToCreate = [
+      { username: "John Doe", password: "johndoe" },
+      { username: "Tim Jones", password: "timjones" },
+      { username: "Mark Noone", password: "alisonany" },
+      { username: "John Doe", password: "alisonany" },
+      { username: "Andy Last", password: "andylast" },
+      { username: "Kathy First", password: "kathyfirst" },
+      { username: "Anyone Else", password: "anyoneelse" },
+    ];
+    const listings = await Promise.all(listingsToCreate.map(createListing))
+    console.log("Listings created:")
+    console.log(listings)
+    console.log("Finished creating listings!")
+  } catch (error) {
+    console.error("Error creating listings!")
+    throw error
+  }
+}
 
 module.exports = {
   createInitialCars,
-  createInitialUsers
+  createInitialUsers,
+  createInitialListings
 };
