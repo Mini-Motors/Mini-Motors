@@ -1,7 +1,7 @@
 const client = require('./client');
-const models = require('./models');
+const models = require('./db_adaptors');
 
 module.exports = {
   client,
-  ...models,
+  ...db_adaptors,
 };
