@@ -15,7 +15,6 @@ async function createCar({ manufacturer, model, type }) {
 }
 
 async function getAllCars() {
-  // select and return an array of all activities
   try {
     const { rows } = await client.query(/*sql*/`
       SELECT * 

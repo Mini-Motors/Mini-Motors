@@ -27,7 +27,6 @@ async function getListingsWithoutCars() {
   }
 }
 
-
 module.exports = {
   createListing,
   getListingsWithoutCars
