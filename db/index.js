@@ -1,4 +1,6 @@
+const client = require('./client');
+
 module.exports = {
-  ...require('./client'),
+  client,
   ...require('./db_adaptors')
 };
