@@ -45,13 +45,13 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "creatorId" INTEGER REFERENCES users(id),
         name VARCHAR(255),
+        color VARCHAR(255) NOT NULL,
         price VARCHAR(255) NOT NULL
       );
       CREATE TABLE car_listings (
         id SERIAL PRIMARY KEY, 
         "carId" INTEGER REFERENCES cars(id),
         "listingId" INTEGER REFERENCES listings(id),
-        color VARCHAR(255) NOT NULL,
         "extendedPrice" VARCHAR(255),
         UNIQUE ("carId", "listingId")
       );
