@@ -40,7 +40,8 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) UNIQUE NOT NULL,
-        type VARCHAR(255) NOT NULL
+        type VARCHAR(255) NOT NULL,
+        color VARCHAR(255) NOT NULL
       );
 
       CREATE TABLE listings (
