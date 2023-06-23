@@ -111,95 +111,29 @@ async function createInitialCarListings() {
     acura ] = await getAllCars();
 
   const carListingsToCreate = [
-    {
-      carId: chevrolet.id,
-      listingId: listing1.id,
-      extendedPrice: null
-    },
-    {
-      carId: chevrolet.id,
-      listingId: listing1.id,
-      extendedPrice: null
-    },
-    {
-      carId: chevrolet.id,
-      listingId: listing2.id,
-      extendedPrice: null
-    },
-    {
-      carId: ford.id,
-      listingId: listing3.id,
-      extendedPrice: null
-    },
-    {
-      carId: ford.id,
-      listingId: listing4.id,
-      extendedPrice: null
-    },
-    {
-      carId: ford.id,
-      listingId: listing5.id,
-      extendedPrice: null
-    },
-    {
-      carId: dodge.id,
-      listingId: listing6.id,
-      extendedPrice: null
-    },
-    {
-      carId: dodge.id,
-      listingId: listing7.id,
-      extendedPrice: null
-    },
-    {
-      carId: nissan.id,
-      listingId: listing8.id,
-      extendedPrice: null
-    },
-    {
-      carId: nissan.id,
-      listingId: listing9.id,
-      extendedPrice: null
-    },
-    {
-      carId: nissan.id,
-      listingId: listing10.id,
-      extendedPrice: null
-    },
-    {
-      carId: toyota.id,
-      listingId: listing1.id,
-      extendedPrice: null
-    },
-    {
-      carId: toyota.id,
-      listingId: listing2.id,
-      extendedPrice: null
-    },
-    {
-      carId: toyota.id,
-      listingId: listing3.id,
-      extendedPrice: null
-    },
-    {
-      carId: acura.id,
-      listingId: listing4.id,
-      extendedPrice: null
-    },
-    {
-      carId: acura.id,
-      listingId: listing5.id,
-      extendedPrice: null
-    },
-    {
-      carId: acura.id,
-      listingId: listing6.id,
-      extendedPrice: null
-    },
-  ]
+    { carId: chevrolet.id, listingId: listing1.id, extendedPrice: null },
+    { carId: chevrolet.id, listingId: listing1.id, extendedPrice: null },
+    { carId: chevrolet.id, listingId: listing2.id, extendedPrice: null },
+    { carId: ford.id, listingId: listing3.id, extendedPrice: null },
+    { carId: ford.id, listingId: listing4.id, extendedPrice: null },
+    { carId: ford.id, listingId: listing5.id, extendedPrice: null },
+    { carId: dodge.id, listingId: listing6.id, extendedPrice: null },
+    { carId: dodge.id, listingId: listing7.id, extendedPrice: null },
+    { carId: nissan.id, listingId: listing8.id, extendedPrice: null },
+    { carId: nissan.id, listingId: listing9.id, extendedPrice: null },
+    { carId: nissan.id, listingId: listing10.id, extendedPrice: null },
+    { carId: toyota.id, listingId: listing1.id, extendedPrice: null },
+    { carId: toyota.id, listingId: listing2.id, extendedPrice: null },
+    { carId: toyota.id, listingId: listing3.id, extendedPrice: null },
+    { carId: acura.id, listingId: listing4.id, extendedPrice: null },
+    { carId: acura.id, listingId: listing5.id, extendedPrice: null },
+    { carId: acura.id, listingId: listing6.id, extendedPrice: null }
+  ];
+
   const carListings = await Promise.all(
     carListingsToCreate.map(addCarToListing)
-  )
+  );
+  
   console.log("Car Listings created: ", carListings)
   console.log("Finished creating car listings!")
 }
