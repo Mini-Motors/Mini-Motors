@@ -9,7 +9,6 @@ const {
 //! DROP TABLES
 async function dropTables() {
   console.log("Dropping All Tables...")
-  // drop all tables, in the correct order
   try {
     await client.query(/*sql*/`
       DROP TABLE IF EXISTS car_listings;
@@ -26,7 +25,6 @@ async function dropTables() {
 //! CREATE TABLES
 async function createTables() {
   console.log("Starting to build tables...")
-  // create all tables, in the correct order
   try {
     await client.query(/*sql*/`
       CREATE TABLE users (
@@ -65,11 +63,8 @@ async function createTables() {
 //! BUILD TABLES
 async function buildTables() {
   try {
-    /* connect to client */
     client.connect();
-    /* drop tables in correct order */
     await dropTables();
-    /* build tables in correct order */
     await createTables();   
   } catch (error) {
     throw error;

@@ -88,14 +88,6 @@ async function createInitialCars() {
   }
 }
 
-
-// CREATE TABLE listings (
-//   id SERIAL PRIMARY KEY,
-//   "creatorId" INTEGER REFERENCES users(id),
-//   price VARCHAR(255) NOT NULL,
-//   description VARCHAR(255)
-// );
-
 //! POPULATE CARS_LISTINGS TABLE WITH TEST DATA
 
 
