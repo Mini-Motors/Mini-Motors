@@ -2,6 +2,7 @@ const {
   client,
   createCar,
   createUser,
+  addCarToListing,
   // declare your model imports here
   // for example, User
 } = require('./');
@@ -45,7 +46,7 @@ async function createTables() {
       );
       CREATE TABLE listings (
         id SERIAL PRIMARY KEY,
-        "userId" INTEGER REFERENCES users(id),
+        "creatorId" INTEGER REFERENCES users(id),
         price VARCHAR(255) NOT NULL,
         description VARCHAR(255)
       );
