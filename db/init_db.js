@@ -3,7 +3,8 @@ const {
   createInitialListings,
   createInitialCars,
   createInitialUsers,
-  createInitialCarListings
+  createInitialCarListings,
+  subtotal
 } = require('./');
 
 
@@ -79,6 +80,7 @@ async function populateInitialData() {
     await createInitialCars();
     await createInitialListings();
     await createInitialCarListings();
+    await subtotal();
   } catch (error) {
     throw error;
   }

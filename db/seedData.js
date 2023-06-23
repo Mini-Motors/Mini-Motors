@@ -4,7 +4,8 @@ const {
   createListing,
   addCarToListing,
   getListingsWithoutCars,
-  getAllCars
+  getAllCars,
+  getListingSubtotal
 } = require('./db_adaptors');
 
 //! POPULATE THE CARS TABLE WITH TEST DATA (activities)
@@ -135,9 +136,13 @@ async function createInitialCarListings() {
   const carListings = await Promise.all(
     carListingsToCreate.map(addCarToListing)
   );
-
   console.log("Car Listings created: ", carListings);
   console.log("Finished creating car listings!");
+  
+}
+
+async function subtotal() {
+  console.log(await getListingSubtotal(2));
 }
 
 
@@ -145,5 +150,6 @@ module.exports = {
   createInitialUsers,
   createInitialCars,
   createInitialListings,
-  createInitialCarListings
+  createInitialCarListings,
+  subtotal
 };
