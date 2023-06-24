@@ -4,7 +4,7 @@ const { requireUser } = require('./utils');
 const { canEditCarListings, 
   getCarListingById,
   updateCarListing,
-  destroyCarListing } = require('../db/car_listings');
+  destroyCarListing } = require('../db/db_adaptors');
 
 
 // PATCH /api/car_listings/:carListingId
