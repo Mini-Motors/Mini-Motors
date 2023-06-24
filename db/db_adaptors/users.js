@@ -18,11 +18,59 @@ async function createUser({ username, password }) {
 }
 
 async function getAllUsers() {
-  /* this adapter should fetch a list of users from your db */
+  try {
+    const { rows } = await client.query(/*sql*/`
+      SELECT * FROM users;
+    `);
+    return rows;
+  } catch (error) {
+    console.error("Error fetching all users!", error);
+    throw error;
+  }
+}
+
+async function getUser() {
+  try {
+    const { rows } = await client.query(/*sql*/`
+      SELECT * FROM users LIMIT 1;
+    `);
+    return rows[0];
+  } catch (error) {
+    console.error("Error fetching user!", error);
+    throw error;
+  }
+}
+
+async function getUserById(userId) {
+  try {
+    const { rows } = await client.query(/*sql*/`
+      SELECT * FROM users WHERE id = $1;
+    `, [userId]);
+    return rows[0];
+  } catch (error) {
+    console.error("Error fetching user by ID!", error);
+    throw error;
+  }
+}
+
+async function getUserByUsername(username) {
+  try {
+    const { rows } = await client.query(/*sql*/`
+      SELECT * FROM users WHERE username = $1;
+    `, [username]);
+    return rows[0];
+  } catch (error) {
+    console.error("Error fetching user by username!", error);
+    throw error;
+  }
 }
 
 module.exports = {
   // add your database adapter fns here
   getAllUsers,
   createUser,
+  getUser, 
+  getUserById,
+  getUserByUsername
+
 };
