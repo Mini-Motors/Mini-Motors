@@ -52,9 +52,9 @@ apiRouter.get('/health', (req, res, next) => {
 
 
 //* Place your routers here
-apiRouter.use('/users', usersRouter);
-apiRouter.use('/cars', carsRouter);
-apiRouter.use('/listings', listingsRouter);
+// apiRouter.use('/users', usersRouter);
+// apiRouter.use('/cars', carsRouter);
+// apiRouter.use('/listings', listingsRouter);
 apiRouter.use('/car_listings', carListingsRouter);
 
 //* 404 Handler (Non-Exiting Routes)
