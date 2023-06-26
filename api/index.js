@@ -55,7 +55,7 @@ apiRouter.get('/health', (req, res, next) => {
 // apiRouter.use('/users', usersRouter);
 // apiRouter.use('/cars', carsRouter);
 // apiRouter.use('/listings', listingsRouter);
-apiRouter.use('/carListings', carListingsRouter);
+apiRouter.use('/carReviews', carReviewsRouter);
 
 //* 404 Handler (Non-Exiting Routes)
 apiRouter.get('*', (req, res) => {

@@ -3,7 +3,7 @@ const {
   createInitialListings,
   createInitialCars,
   createInitialUsers,
-  createInitialCarListings,
+  createInitialCarReviews,
   subtotal
 } = require('./');
 
@@ -13,7 +13,7 @@ async function dropTables() {
   console.log("Dropping All Tables...")
   try {
     await client.query(/*sql*/`
-      DROP TABLE IF EXISTS car_listings;
+      DROP TABLE IF EXISTS car_reviews;
       DROP TABLE IF EXISTS listings;
       DROP TABLE IF EXISTS cars;
       DROP TABLE IF EXISTS users;
@@ -39,7 +39,6 @@ async function createTables() {
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) NOT NULL,
         type VARCHAR(255) NOT NULL
-        
       );
       CREATE TABLE listings (
         id SERIAL PRIMARY KEY,
@@ -48,12 +47,11 @@ async function createTables() {
         color VARCHAR(255) NOT NULL,
         price VARCHAR(255) NOT NULL
       );
-      CREATE TABLE car_listings (
+      CREATE TABLE car_reviews (
         id SERIAL PRIMARY KEY, 
-        "carId" INTEGER REFERENCES cars(id),
         "listingId" INTEGER REFERENCES listings(id),
-        "extendedPrice" VARCHAR(255),
-        UNIQUE("carId", "listingId")
+        "userId" INTEGER REFERENCES users(id),
+        review VARCHAR(255) NOT NULL
       );
     `);
   } catch (error) {
@@ -79,7 +77,7 @@ async function populateInitialData() {
     await createInitialUsers();
     await createInitialCars();
     await createInitialListings();
-    await createInitialCarListings();
+    await createInitialCarReviews();
     await subtotal();
   } catch (error) {
     throw error;

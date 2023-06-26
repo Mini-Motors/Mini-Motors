@@ -10,7 +10,7 @@ module.exports = {
   ...require('./cars'), 
   ...require('./listings'), 
   ...require('./users'), 
-  ...require('./car_listings') 
+  ...require('./car_reviews') 
 }
 
 

@@ -2,10 +2,9 @@ const {
   createCar,
   createUser,
   createListing,
-  addCarToListing,
   getListingsWithoutCars,
-  getAllCars,
-  getListingSubtotal
+  getListingSubtotal,
+  addReviewToListing
 } = require('./db_adaptors');
 
 //! POPULATE THE CARS TABLE WITH TEST DATA (activities)
@@ -92,8 +91,8 @@ async function createInitialCars() {
 }
 
 //! POPULATE CARS_LISTINGS TABLE WITH TEST DATA (routine_activities)
-async function createInitialCarListings() {
-  console.log("starting to create car listings...");
+async function createInitialCarReviews() {
+  console.log("starting to create car reviews...");
 
   const [ listing1, 
     listing2, 
@@ -106,38 +105,31 @@ async function createInitialCarListings() {
     listing9, 
     listing10 ] = await getListingsWithoutCars();
 
-  const [ chevrolet, 
-    ford, 
-    dodge, 
-    nissan, 
-    toyota, 
-    acura ] = await getAllCars();
-
-  const carListingsToCreate = [
-    { carId: chevrolet.id, listingId: listing1.id, extendedPrice: null },
-    { carId: chevrolet.id, listingId: listing2.id, extendedPrice: null },
-    { carId: chevrolet.id, listingId: listing3.id, extendedPrice: null },
-    { carId: ford.id, listingId: listing4.id, extendedPrice: null },
-    { carId: ford.id, listingId: listing5.id, extendedPrice: null },
-    { carId: ford.id, listingId: listing6.id, extendedPrice: null },
-    { carId: dodge.id, listingId: listing7.id, extendedPrice: null },
-    { carId: dodge.id, listingId: listing8.id, extendedPrice: null },
-    { carId: nissan.id, listingId: listing9.id, extendedPrice: null },
-    { carId: nissan.id, listingId: listing10.id, extendedPrice: null },
-    { carId: nissan.id, listingId: listing1.id, extendedPrice: null },
-    { carId: toyota.id, listingId: listing2.id, extendedPrice: null },
-    { carId: toyota.id, listingId: listing3.id, extendedPrice: null },
-    { carId: toyota.id, listingId: listing4.id, extendedPrice: null },
-    { carId: acura.id, listingId: listing5.id, extendedPrice: null },
-    { carId: acura.id, listingId: listing6.id, extendedPrice: null },
-    { carId: acura.id, listingId: listing7.id, extendedPrice: null }
+  const carReviewsToCreate = [
+    { userId: 1, listingId: listing1.id, review: "Great" },
+    { userId: 1, listingId: listing2.id, review: "Great" },
+    { userId: 1, listingId: listing3.id, review: "Great" },
+    { userId: 2, listingId: listing4.id, review: "Great" },
+    { userId: 2, listingId: listing5.id, review: "Great" },
+    { userId: 2, listingId: listing6.id, review: "Great" },
+    { userId: 3, listingId: listing7.id, review: "Great" },
+    { userId: 3, listingId: listing8.id, review: "Great" },
+    { userId: 3, listingId: listing9.id, review: "Great" },
+    { userId: 4, listingId: listing10.id, review: "Great" },
+    { userId: 4, listingId: listing1.id, review: "Great" },
+    { userId: 4, listingId: listing2.id, review: "Great" },
+    { userId: 5, listingId: listing3.id, review: "Great" },
+    { userId: 5, listingId: listing4.id, review: "Great" },
+    { userId: 6, listingId: listing5.id, review: "Great" },
+    { userId: 6, listingId: listing6.id, review: "Great" },
+    { userId: 7, listingId: listing7.id, review: "Great" }
   ];
 
-  const carListings = await Promise.all(
-    carListingsToCreate.map(addCarToListing)
+  const carReviews = await Promise.all(
+    carReviewsToCreate.map(addReviewToListing)
   );
-  console.log("Car Listings created: ", carListings);
-  console.log("Finished creating car listings!");
+  console.log("Car reviews created: ", carReviews);
+  console.log("Finished creating car reviews!");
   
 }
 
@@ -150,6 +142,6 @@ module.exports = {
   createInitialUsers,
   createInitialCars,
   createInitialListings,
-  createInitialCarListings,
+  createInitialCarReviews,
   subtotal
 };
