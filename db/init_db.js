@@ -43,7 +43,9 @@ async function createTables() {
       CREATE TABLE listings (
         id SERIAL PRIMARY KEY,
         "creatorId" INTEGER REFERENCES users(id),
+        "carId" INTEGER REFERENCES cars(id),
         name VARCHAR(255),
+        
         color VARCHAR(255) NOT NULL,
         price VARCHAR(255) NOT NULL
       );
