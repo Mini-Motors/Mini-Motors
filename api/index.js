@@ -1,9 +1,10 @@
 const apiRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
 // const usersRouter = require('./users');
-// const carsRouter = require('./activities');
-// const listingsRouter = require('./routines');
-const carListingsRouter = require('./carListings');
+// const carsRouter = require('./cars');
+// const listingsRouter = require('./listings');
+// const cartRouter = require ('./cart');
+const carReviewsRouter = require('./carReviews');
 const { JWT_SECRET } = process.env;
 
 
@@ -31,12 +32,12 @@ apiRouter.use(async (req, res, next) => {
   }
 });
 
-// apiRouter.use((req, res, next) => {
-//   if (req.user) {
-//     console.log("User is set:", req.user);
-//   }
-//   next();
-// });
+apiRouter.use((req, res, next) => {
+  if (req.user) {
+    console.log("User is set:", req.user);
+  }
+  next();
+});
 
 apiRouter.get('/', (req, res, next) => {
   res.send({
@@ -55,6 +56,7 @@ apiRouter.get('/health', (req, res, next) => {
 // apiRouter.use('/users', usersRouter);
 // apiRouter.use('/cars', carsRouter);
 // apiRouter.use('/listings', listingsRouter);
+// apiRouter.use('/cart', cartRouter);
 apiRouter.use('/carReviews', carReviewsRouter);
 
 //* 404 Handler (Non-Exiting Routes)

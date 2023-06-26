@@ -103,7 +103,6 @@ async function canEditCarReview(carReviewId, userId) {
 
 module.exports = {
   addReviewToListing,
-  getCarReviewById,
   getCarListingsByListing,
   getReviewListingById,
   updateCarReview,

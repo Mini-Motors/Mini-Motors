@@ -4,7 +4,6 @@ const {
   createInitialCars,
   createInitialUsers,
   createInitialCarReviews,
-  subtotal
 } = require('./');
 
 
@@ -13,6 +12,7 @@ async function dropTables() {
   console.log("Dropping All Tables...")
   try {
     await client.query(/*sql*/`
+      DROP TABLE IF EXISTS cart;
       DROP TABLE IF EXISTS car_reviews;
       DROP TABLE IF EXISTS listings;
       DROP TABLE IF EXISTS cars;
@@ -53,6 +53,13 @@ async function createTables() {
         "userId" INTEGER REFERENCES users(id),
         review VARCHAR(255) NOT NULL
       );
+      CREATE TABLE cart (
+        id SERIAL PRIMARY KEY, 
+        "listingId" INTEGER REFERENCES listings(id),
+        "userId" INTEGER REFERENCES users(id),
+        "lineNo" VARCHAR(255) NOT NULL,
+        currentPrice VARCHAR(255) NOT NULL
+      );
     `);
   } catch (error) {
     console.error('Error building tables!');
@@ -78,7 +85,6 @@ async function populateInitialData() {
     await createInitialCars();
     await createInitialListings();
     await createInitialCarReviews();
-    await subtotal();
   } catch (error) {
     throw error;
   }

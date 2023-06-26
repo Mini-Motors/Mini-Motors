@@ -3,7 +3,6 @@ const {
   createUser,
   createListing,
   getListingsWithoutCars,
-  getListingSubtotal,
   addReviewToListing
 } = require('./db_adaptors');
 
@@ -133,15 +132,9 @@ async function createInitialCarReviews() {
   
 }
 
-async function subtotal() {
-  console.log(await getListingSubtotal(2));
-}
-
-
 module.exports = {
   createInitialUsers,
   createInitialCars,
   createInitialListings,
   createInitialCarReviews,
-  subtotal
 };
