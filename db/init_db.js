@@ -45,7 +45,6 @@ async function createTables() {
         "creatorId" INTEGER REFERENCES users(id),
         "carId" INTEGER REFERENCES cars(id),
         name VARCHAR(255),
-        
         color VARCHAR(255) NOT NULL,
         price VARCHAR(255) NOT NULL
       );
@@ -60,7 +59,7 @@ async function createTables() {
         "listingId" INTEGER REFERENCES listings(id),
         "userId" INTEGER REFERENCES users(id),
         "lineNo" VARCHAR(255) NOT NULL,
-        currentPrice VARCHAR(255) NOT NULL
+        "currentPrice" VARCHAR(255) NOT NULL
       );
     `);
   } catch (error) {
