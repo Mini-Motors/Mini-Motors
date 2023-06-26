@@ -68,16 +68,16 @@ async function createInitialCars() {
   console.log("Starting to create Listings...")
   try {
     const listingsToCreate = [
-      { creatorId: 1, name: "Listing1", price: "100.00", color: "red" },
-      { creatorId: 1, name: "Listing2", price: "200.00", color: "red" },
-      { creatorId: 2, name: "Listing3", price: "300.00", color: "red" },
-      { creatorId: 2, name: "Listing4", price: "400.00", color: "red" },
-      { creatorId: 3, name: "Listing5", price: "500.00", color: "red" },
-      { creatorId: 3, name: "Listing6", price: "600.00", color: "red" },
-      { creatorId: 4, name: "Listing7", price: "700.00", color: "red" },
-      { creatorId: 5, name: "Listing8", price: "800.00", color: "red" },
-      { creatorId: 6, name: "Listing9", price: "900.00", color: "red" },
-      { creatorId: 7, name: "Listing10", price: "1000.00", color: "red" },
+      { creatorId: 1, "carId": 1, name: "Listing1", price: "100.00", color: "red" },
+      { creatorId: 1, "carId": 2, name: "Listing2", price: "200.00", color: "blue" },
+      { creatorId: 2, "carId": 3, name: "Listing3", price: "300.00", color: "green" },
+      { creatorId: 2, "carId": 4, name: "Listing4", price: "400.00", color: "red" },
+      { creatorId: 3, "carId": 5, name: "Listing5", price: "500.00", color: "blue" },
+      { creatorId: 3, "carId": 6, name: "Listing6", price: "600.00", color: "green" },
+      { creatorId: 4, "carId": 7, name: "Listing7", price: "700.00", color: "red" },
+      { creatorId: 5, "carId": 8, name: "Listing8", price: "800.00", color: "blue" },
+      { creatorId: 6, "carId": 9, name: "Listing9", price: "900.00", color: "green" },
+      { creatorId: 7, "carId": 10, name: "Listing10", price: "1000.00", color: "red" },
     ];
     const listings = await Promise.all(listingsToCreate.map(createListing))
     console.log("Listings created:")
