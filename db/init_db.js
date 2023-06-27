@@ -1,10 +1,9 @@
 const {
   client,
-  createInitialListings,
+
   createInitialCars,
   createInitialUsers,
-  createInitialCarListings,
-  subtotal
+
 } = require('./');
 
 
@@ -12,9 +11,9 @@ const {
 async function dropTables() {
   console.log("Dropping All Tables...")
   try {
-    await client.query(/*sql*/`
-      DROP TABLE IF EXISTS car_listings;
-      DROP TABLE IF EXISTS listings;
+    await client.query(/*sql*/`   
+      DROP TABLE IF EXISTS cart_items;
+      DROP TABLE IF EXISTS cart;
       DROP TABLE IF EXISTS cars;
       DROP TABLE IF EXISTS users;
     `);
@@ -32,28 +31,28 @@ async function createTables() {
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL  
+        password VARCHAR(255) NOT NULL,
+        "isAdmin" BOOLEAN DEFAULT false
       );
       CREATE TABLE cars (
         id SERIAL PRIMARY KEY,
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) NOT NULL,
-        type VARCHAR(255) NOT NULL
-        
-      );
-      CREATE TABLE listings (
-        id SERIAL PRIMARY KEY,
-        "creatorId" INTEGER REFERENCES users(id),
-        name VARCHAR(255),
+        type VARCHAR(255) NOT NULL,
         color VARCHAR(255) NOT NULL,
         price VARCHAR(255) NOT NULL
       );
-      CREATE TABLE car_listings (
+      CREATE TABLE cart (
         id SERIAL PRIMARY KEY, 
+        "userId" INTEGER REFERENCES users(id),
+        "isActive" BOOLEAN DEFAULT true,
+        favorites BOOLEAN DEFAULT false
+      );
+      CREATE TABLE cart_items (
+        id SERIAL PRIMARY KEY, 
+        "cartId" INTEGER REFERENCES cart(id),
         "carId" INTEGER REFERENCES cars(id),
-        "listingId" INTEGER REFERENCES listings(id),
-        "extendedPrice" VARCHAR(255),
-        UNIQUE("carId", "listingId")
+        "currentPrice" VARCHAR(255) NOT NULL
       );
     `);
   } catch (error) {
@@ -78,9 +77,6 @@ async function populateInitialData() {
   try {
     await createInitialUsers();
     await createInitialCars();
-    await createInitialListings();
-    await createInitialCarListings();
-    await subtotal();
   } catch (error) {
     throw error;
   }

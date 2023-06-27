@@ -1,12 +1,12 @@
 const client = require('../client');
 
-async function createCar({ manufacturer, model, type }) {
+async function createCar({ manufacturer, model, type, color, price }) {
   try {
     const { rows: [ car ] } = await client.query(/*sql*/`
-      INSERT INTO cars (manufacturer, model, type) 
-      VALUES ($1, $2, $3)
+      INSERT INTO cars (manufacturer, model, type, color, price) 
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
-    `, [ manufacturer, model, type ]);
+    `, [ manufacturer, model, type, color, price ]);
     return car;
   } catch (error) {
     console.error("Error creating car!", error);
