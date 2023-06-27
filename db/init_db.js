@@ -1,9 +1,9 @@
 const {
   client,
-  createInitialListings,
+
   createInitialCars,
   createInitialUsers,
-  createInitialCarReviews,
+
 } = require('./');
 
 
@@ -11,10 +11,9 @@ const {
 async function dropTables() {
   console.log("Dropping All Tables...")
   try {
-    await client.query(/*sql*/`
+    await client.query(/*sql*/`   
+      DROP TABLE IF EXISTS cart_items;
       DROP TABLE IF EXISTS cart;
-      DROP TABLE IF EXISTS car_reviews;
-      DROP TABLE IF EXISTS listings;
       DROP TABLE IF EXISTS cars;
       DROP TABLE IF EXISTS users;
     `);
@@ -32,33 +31,27 @@ async function createTables() {
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL  
+        password VARCHAR(255) NOT NULL,
+        "isAdmin" BOOLEAN DEFAULT false
       );
       CREATE TABLE cars (
         id SERIAL PRIMARY KEY,
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) NOT NULL,
-        type VARCHAR(255) NOT NULL
-      );
-      CREATE TABLE listings (
-        id SERIAL PRIMARY KEY,
-        "creatorId" INTEGER REFERENCES users(id),
-        "carId" INTEGER REFERENCES cars(id),
-        name VARCHAR(255),
+        type VARCHAR(255) NOT NULL,
         color VARCHAR(255) NOT NULL,
         price VARCHAR(255) NOT NULL
       );
-      CREATE TABLE car_reviews (
-        id SERIAL PRIMARY KEY, 
-        "listingId" INTEGER REFERENCES listings(id),
-        "userId" INTEGER REFERENCES users(id),
-        review VARCHAR(255) NOT NULL
-      );
       CREATE TABLE cart (
         id SERIAL PRIMARY KEY, 
-        "listingId" INTEGER REFERENCES listings(id),
         "userId" INTEGER REFERENCES users(id),
-        "lineNo" VARCHAR(255) NOT NULL,
+        "isActive" BOOLEAN DEFAULT true,
+        favorites BOOLEAN DEFAULT false
+      );
+      CREATE TABLE cart_items (
+        id SERIAL PRIMARY KEY, 
+        "cartId" INTEGER REFERENCES cart(id),
+        "carId" INTEGER REFERENCES cars(id),
         "currentPrice" VARCHAR(255) NOT NULL
       );
     `);
@@ -84,8 +77,6 @@ async function populateInitialData() {
   try {
     await createInitialUsers();
     await createInitialCars();
-    await createInitialListings();
-    await createInitialCarReviews();
   } catch (error) {
     throw error;
   }

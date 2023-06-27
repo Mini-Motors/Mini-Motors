@@ -1,10 +1,9 @@
 const apiRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
-// const usersRouter = require('./users');
 // const carsRouter = require('./cars');
-// const listingsRouter = require('./listings');
+const cartItemsRouter = require ('./cart_items');
 // const cartRouter = require ('./cart');
-const carReviewsRouter = require('./carReviews');
+// const usersRouter = require('./users');
 const { JWT_SECRET } = process.env;
 
 
@@ -53,11 +52,11 @@ apiRouter.get('/health', (req, res, next) => {
 
 
 //* Place your routers here
-// apiRouter.use('/users', usersRouter);
 // apiRouter.use('/cars', carsRouter);
-// apiRouter.use('/listings', listingsRouter);
+apiRouter.use('/cartItems', cartItemsRouter);
 // apiRouter.use('/cart', cartRouter);
-apiRouter.use('/carReviews', carReviewsRouter);
+// apiRouter.use('/users', usersRouter);
+
 
 //* 404 Handler (Non-Exiting Routes)
 apiRouter.get('*', (req, res) => {

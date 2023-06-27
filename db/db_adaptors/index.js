@@ -5,15 +5,12 @@
 //   // and User: require('./user') here
 // };
 
-
 module.exports = {
   ...require('./cars'), 
-  ...require('./listings'), 
-  ...require('./users'), 
-  ...require('./car_reviews') 
-}
-
-
+  ...require('./cart_items'), 
+  ...require ('./cart'),
+  ...require('./users')
+};
 
 // then, in your API, you'll require the appropriate model
 // and use its database connectors
