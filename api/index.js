@@ -1,15 +1,14 @@
-const apiRouter = require('express').Router();
-const jwt = require('jsonwebtoken');
-// const carsRouter = require('./cars');
-const cartItemsRouter = require ('./cart_items');
+const apiRouter = require("express").Router();
+const jwt = require("jsonwebtoken");
+const carsRouter = require("./cars");
+const cartItemsRouter = require("./cart_items");
 // const cartRouter = require ('./cart');
 // const usersRouter = require('./users');
 const { JWT_SECRET } = process.env;
 
-
 apiRouter.use(async (req, res, next) => {
-  const prefix = 'Bearer ';
-  const auth = req.header('Authorization');
+  const prefix = "Bearer ";
+  const auth = req.header("Authorization");
   if (!auth) {
     next();
   } else if (auth.startsWith(prefix)) {
@@ -25,8 +24,8 @@ apiRouter.use(async (req, res, next) => {
     }
   } else {
     next({
-      name: 'AuthorizationHeaderError',
-      message: `Authorization token must start with ${ prefix }`
+      name: "AuthorizationHeaderError",
+      message: `Authorization token must start with ${prefix}`,
     });
   }
 });
@@ -38,28 +37,26 @@ apiRouter.use((req, res, next) => {
   next();
 });
 
-apiRouter.get('/', (req, res, next) => {
+apiRouter.get("/", (req, res, next) => {
   res.send({
-    message: 'API is under construction!',
+    message: "API is under construction!",
   });
 });
 
-apiRouter.get('/health', (req, res, next) => {
+apiRouter.get("/health", (req, res, next) => {
   res.send({
     healthy: true,
   });
 });
 
-
 //* Place your routers here
-// apiRouter.use('/cars', carsRouter);
-apiRouter.use('/cartItems', cartItemsRouter);
+apiRouter.use("/cars", carsRouter);
+apiRouter.use("/cartItems", cartItemsRouter);
 // apiRouter.use('/cart', cartRouter);
 // apiRouter.use('/users', usersRouter);
 
-
 //* 404 Handler (Non-Exiting Routes)
-apiRouter.get('*', (req, res) => {
+apiRouter.get("*", (req, res) => {
   res.status(404).send({ message: "Error, can not find that page" });
 });
 
@@ -69,17 +66,16 @@ apiRouter.use((error, req, res, next) => {
     res.status(error.statusCode).send({
       error: error.error,
       name: error.name,
-      message: error.message    
+      message: error.message,
     });
   } else {
     res.send({
       error: error.error,
       name: error.name,
-      message: error.message    
+      message: error.message,
     });
   }
   next();
 });
-
 
 module.exports = apiRouter;
