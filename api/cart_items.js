@@ -3,7 +3,7 @@ const cartItemsRouter = express.Router();
 const { requireUser } = require('./utils');
 const { canEditCartItem, 
   getCartItemById,
-  getCarItemsByCartId,
+  getCartItemByCartId,
   updateCartItem,
   destroyCartItem } = require('../db/db_adaptors');
 
@@ -25,11 +25,11 @@ cartItemsRouter.patch('/:carItemId', requireUser, async (req, res, next) => {
         message:  UnauthorizedUpdateError(username, car.manufacturer)
       })
     } else {
-      const updatedCartListing = await updateCarListing({
+      const updatedCartItem = await updateCartItem({
         id,
         currentPrice
       })
-      res.send(updatedCartListing);
+      res.send(updatedCartItem);
     }
   } catch (error) {
     next(error);
