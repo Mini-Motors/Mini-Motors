@@ -8,7 +8,7 @@ const { canEditCartItem,
   destroyCartItem } = require('../db/db_adaptors');
 
 
-// PATCH /api/car_reviews/:carReviewId
+// PATCH /api/cart_items/:carItemId
 cartItemsRouter.patch('/:carItemId', requireUser, async (req, res, next) => {
   const id = req.params.carItemId;
   const cartId = req.body.cartId;
@@ -36,7 +36,7 @@ cartItemsRouter.patch('/:carItemId', requireUser, async (req, res, next) => {
   }
 });
 
-// DELETE /api/car_reviews/:cartItemId
+// DELETE /api/cart_items/:cartItemId
 cartItemsRouter.delete('/:cartItemId', requireUser, async (req, res, next) => {
   const id = req.params.cartItemId;
   const userId = req.user.id;
