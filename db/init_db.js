@@ -1,9 +1,9 @@
 const {
   client,
-
   createInitialCars,
   createInitialUsers,
-
+  createInitialCarts,
+  createInitialCartItems
 } = require('./');
 
 
@@ -44,7 +44,7 @@ async function createTables() {
       );
       CREATE TABLE cart (
         id SERIAL PRIMARY KEY, 
-        "userId" INTEGER REFERENCES users(id),
+        "creatorId" INTEGER REFERENCES users(id),
         "isActive" BOOLEAN DEFAULT true,
         favorites BOOLEAN DEFAULT false
       );
@@ -77,6 +77,8 @@ async function populateInitialData() {
   try {
     await createInitialUsers();
     await createInitialCars();
+    await createInitialCarts();
+    await createInitialCartItems();
   } catch (error) {
     throw error;
   }
