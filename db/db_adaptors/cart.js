@@ -1,13 +1,12 @@
 const client = require('../client');
 
-async function createCart({ userId, isActive, favorites }) {
+async function createCart({ creatorId, isActive, favorites }) {
   try {
     const { rows: [ cart ] } = await client.query(/*sql*/`
-      INSERT INTO cart (userId, isActive, favorites) 
+      INSERT INTO cart ("creatorId", "isActive", favorites) 
       VALUES ($1, $2, $3)
-      ON CONFLICT (username) DO NOTHING
       RETURNING *;
-    `, [ userId, isActive, favorites ]);
+    `, [ creatorId, isActive, favorites ]);
     return cart;
   } catch (error) {
     console.error("Error creating user!", error);
