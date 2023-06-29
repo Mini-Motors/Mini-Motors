@@ -1,5 +1,7 @@
 const client = require("../client");
 
+//get cars
+
 async function createCar({ manufacturer, model, type, color, price }) {
   try {
     const {
@@ -127,6 +129,36 @@ async function getCarsByColor(color) {
   }
 }
 
+//update cars --need creatorId?
+
+async function updateCar({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}" = $${index + 1}`)
+    .join(",");
+
+  try {
+    if (setString.length > 0) {
+      const {
+        rows: [car],
+      } = await client.query(
+        /*sql*/ `
+      UPDATE cars
+      SET ${setString}
+      WHERE id=${id}
+      RETURNING *:`,
+        Object.values(fields)
+      );
+
+      return car;
+    }
+  } catch (error) {
+    console.error("Error in updateCar", error);
+    throw error;
+  }
+}
+
+//delete cars --?  No way to verify creator
+
 module.exports = {
   createCar,
   getAllCars,
@@ -135,4 +167,5 @@ module.exports = {
   getCarsByModel,
   getCarsByType,
   getCarsByColor,
+  updateCar,
 };
