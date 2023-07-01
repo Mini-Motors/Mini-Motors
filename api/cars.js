@@ -15,8 +15,7 @@ const {
 carsRouter.get("/", async (req, res, next) => {
   try {
     const cars = await getAllCars();
-
-    res.send(allCars);
+    res.send(cars);
   } catch (error) {
     next(error);
   }
@@ -40,7 +39,7 @@ carsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-//GET/cars/:manufacterer
+//GET/cars/:manufacturer
 carsRouter.get("/:manufacturer", async (req, res, next) => {
   const { manufacturer } = req.params;
   try {
@@ -126,7 +125,7 @@ carsRouter.patch("/:carId", async (req, res, next) => {
       res.send({
         error: "Unauthorized",
         name: "User",
-        message: "Administartor required",
+        message: "Administrator required",
       });
     }
   } catch (error) {

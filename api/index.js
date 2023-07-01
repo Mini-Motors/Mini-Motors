@@ -2,9 +2,10 @@ const apiRouter = require("express").Router();
 const jwt = require("jsonwebtoken");
 const carsRouter = require("./cars");
 const cartItemsRouter = require("./cart_items");
-// const cartRouter = require ('./cart');
-// const usersRouter = require('./users');
+const cartRouter = require ('./cart');
+const usersRouter = require('./users');
 const { JWT_SECRET } = process.env;
+const { getUserById } = require('../db/db_adaptors/users');
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
@@ -52,8 +53,8 @@ apiRouter.get("/health", (req, res, next) => {
 //* Place your routers here
 apiRouter.use("/cars", carsRouter);
 apiRouter.use("/cartItems", cartItemsRouter);
-// apiRouter.use('/cart', cartRouter);
-// apiRouter.use('/users', usersRouter);
+apiRouter.use('/cart', cartRouter);
+apiRouter.use('/users', usersRouter);
 
 //* 404 Handler (Non-Exiting Routes)
 apiRouter.get("*", (req, res) => {
