@@ -8,22 +8,20 @@ const { canEditCartItem,
   destroyCartItem } = require('../db/db_adaptors');
 
 
-// PATCH /api/cart_items/:carItemId
-//change
-cartItemsRouter.patch('/:carItemId', requireUser, async (req, res, next) => {
-  const id = req.params.carItemId;
-  const cartId = req.body.cartId;
+// PATCH /api/cart_items/:cartItemId
+cartItemsRouter.patch('/:cartItemId', requireUser, async (req, res, next) => {
+  const id = req.params.cartItemId;
   const userId = req.user.id;
   const username = req.user.username;
   try {
     const isValid = await canEditCartItem(id, userId);
-    const cartItem = await getCartItemByCartId(cartId);
+    const cartItem = await getCartItemByCartId(id);
     const car = await getCarsById(cartItem.carId);
     if (!isValid) {
       throw ({
         error: "Unauthorized",
         name: "User",
-        message:  UnauthorizedUpdateError(username, car.manufacturer)
+        message:  UnauthorizedUpdateError(username)
       })
     } else {
       const updatedCartItem = await updateCartItem({
