@@ -33,7 +33,7 @@ async function getCartItemByCartId({ id }) {
     const { rows } = await client.query(/*sql*/`
       SELECT * 
       FROM cart_items
-      WHERE "cartId" = $1
+      WHERE id = $1
     `, [ id ]);
     return rows;
   } catch (error) {
@@ -83,7 +83,7 @@ async function canEditCartItem(cartItemId, userId) {
       FROM cart_items
       WHERE id = $1
     `, [ cartItemId ]);
-    const cartId = car_review.cartId;
+    const cartId = cart_item.cartId;
     const { rows: [ cart ] } = await client.query(/*sql*/`
       SELECT * 
       FROM cart
