@@ -35,7 +35,7 @@ async function getCartsWithoutCars() {
       SELECT * 
       FROM cart    
     `);
-    return cart;
+    return rows;
   } catch (error) {
     console.error("Error getting routines without and activity!", error);
     throw error;
@@ -45,7 +45,7 @@ async function getCartsWithoutCars() {
 async function getAllCarts() {
   try {
     const { rows: cart } = await client.query(/*sql*/`
-      SELECT routines.*, users.username AS "creatorName"
+      SELECT cart.*, users.username AS "creatorName"
       FROM cart
       INNER JOIN users
       ON cart."creatorId" = users.id;   
