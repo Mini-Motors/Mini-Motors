@@ -42,7 +42,6 @@ carsRouter.get("/", async (req, res, next) => {
   }
 });
 
-
 // POST /api/cars
 carsRouter.post("/", async (req, res, next) => {
   const request = req.body;
@@ -115,11 +114,7 @@ carsRouter.patch("/:carId", async (req, res, next) => {
 });
 
 
-
-
-
-//Extra Needed?
-
+//! Extra Needed?
 // GET/cars/:id
 carsRouter.get("/:id", async (req, res, next) => {
   const { id } = req.params;
