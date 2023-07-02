@@ -99,7 +99,6 @@ async function getCarsByColor(color) {
   }
 }
 
-
 async function updateCar({ id, ...fields }) {
   const setFields = Object.keys(fields)
     .map((key, index) => `"${ key }" = $${ index + 1 }`)

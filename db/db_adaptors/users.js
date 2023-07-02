@@ -73,7 +73,6 @@ async function getUserByUsername(username) {
 }
 
 module.exports = {
-  // add your database adapter fns here
   getAllUsers,
   createUser,
   getUser, 
