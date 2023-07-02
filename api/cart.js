@@ -7,7 +7,7 @@ const {
   getCartById,
   updateCart,
   addCarToCartItems,
-  getCarsById } = require('../db')
+  getCarsById } = require('../db/db_adaptors')
 
 // GET /api/cart
 cartRouter.get('/', async (req, res, next) => {
@@ -38,6 +38,28 @@ cartRouter.post('/', async (req, res, next) => {
     res.send(newCart);
   } catch (error) {
     next(error);
+  }
+});
+
+// POST /api/cart/:cartId/cars
+cartRouter.post('/:cartId/cars', async (req, res, next) => {
+  const { cartId } = req.params;
+  const { carId } = req.body;
+  const car = await getCarsById(carId);
+  const newCarToAdd = {
+    cartId: cartId,
+    carId: carId,
+    currentPrice: car.price
+  }
+  try {
+    const attachedCars = await addCarToCartItems(newCarToAdd);
+    res.send(attachedCars);
+  } catch (error) {
+    next({
+      error: "Duplicate key",
+      message: "Duplicate car added, update qty instead.",
+      name: "Duplicate Cart_Item Error"
+    });
   }
 });
 
@@ -104,27 +126,7 @@ cartRouter.delete('/:cartId', async (req, res, next) => {
   }
 });
 
-// POST /api/cart/:cartId/cars
-cartRouter.post('/:cartId/cars', async (req, res, next) => {
-  const { cartId } = req.params;
-  const { carId } = req.body;
-  const car = await getCarsById(carId);
-  const newCarToAdd = {
-    cartId: cartId,
-    carId: carId,
-    currentPrice: car.price
-  }
-  try {
-    const attachedCars = await addCarToCartItems(newCarToAdd);
-    res.send(attachedCars);
-  } catch (error) {
-    next({
-      error: "Duplicate key",
-      message: "Duplicate car added, update qty instead.",
-      name: "Duplicate Cart_Item Error"
-    });
-  }
-});
+
 
 module.exports = cartRouter;
 

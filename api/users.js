@@ -6,10 +6,11 @@ const { JWT_SECRET } = process.env;
 const { createUser, 
   getUserByUsername, 
   getUser, 
-  getUserById } = require('../db/db_adaptors/users');
-const { getActiveCartsByUser, 
-  getAllCartsByUser } = require('../db/db_adaptors/cart')
+  getUserById,
+  getActiveCartsByUser,
+  getAllCartsByUser } = require('../db/db_adaptors');
 
+  
 // POST /api/users/register
 usersRouter.post('/register', async (req, res, next) => {
   const { username, password, isAdmin } = req.body;

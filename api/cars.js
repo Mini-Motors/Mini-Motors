@@ -10,8 +10,7 @@ const {
   getCarsById,
   updateCar,
   getActiveCartsByCarId,
-  createCar
-} = require("../db/db_adaptors");
+  createCar } = require("../db/db_adaptors");
 
 
 // GET /api/cars/:carId/cart
