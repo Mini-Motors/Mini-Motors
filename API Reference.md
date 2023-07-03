@@ -21,7 +21,7 @@ Cart_Items:
 Cart:
 
 		GET:
-			/api/cart 										<gets all active carts>
+			/api/cart 										<gets all active carts - user must be admin>
 		POST:
 			/api/cart											<creates a new cart for the user>
 			/api/cart/:cartId/cars				<used to add a car to a user's cart>
