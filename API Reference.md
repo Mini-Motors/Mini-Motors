@@ -11,6 +11,7 @@ Cars:
 			/api/cars/:carId		  		 		<updates an existing car - requires isAdmin = true>  <<Ajax inputs: { carId }>>
 		DELETE:
 			/api/cars/:carID							<deletes a car from the database - requires isAdmin = true>  <<Ajax inputs: { carId }>>
+			
 
 Cart_Items:
 
