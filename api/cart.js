@@ -11,7 +11,7 @@ const {
   getCarsById } = require('../db/db_adaptors')
 
 // GET /api/cart
-cartRouter.get('/', requireAdmin, async (req, res, next) => {
+cartRouter.get('/', requireUser, requireAdmin, async (req, res, next) => {
   try {
     const activeCarts = await getAllActiveCarts();
     res.send(activeCarts);

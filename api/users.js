@@ -3,6 +3,7 @@ const express = require("express");
 const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
+const { requireUser, requireAdmin } = require("./utils");
 const { createUser, 
   getUserByUsername, 
   getUser, 
@@ -72,7 +73,7 @@ usersRouter.post('/login', async (req, res, next) => {
 });
 
 // GET /api/users/me
-usersRouter.get('/me', async (req, res, next) => {
+usersRouter.get('/me', requireUser, async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
     if (!auth) {
@@ -96,7 +97,7 @@ usersRouter.get('/me', async (req, res, next) => {
 });
 
 //GET /api/users/:username/cart
-usersRouter.get('/:username/cart', async (req, res, next) => {
+usersRouter.get('/:username/cart', requireUser, async (req, res, next) => {
   const username = req.params.username;
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
