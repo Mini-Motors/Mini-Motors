@@ -46,8 +46,8 @@ carsRouter.get("/", async (req, res, next) => {
 carsRouter.post("/", async (req, res, next) => {
   const request = req.body;
   try {
-    const existingActivity = await getCarsById(request.id);
-    if (!existingActivity) {
+    const existingCar = await getCarsById(request.id);
+    if (!existingCar) {
       const { manufacturer, model, type, color, price } = await createCar(request);    
       res.send({ manufacturer, model, type, color, price });
     } else {
