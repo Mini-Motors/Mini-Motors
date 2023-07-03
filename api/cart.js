@@ -21,7 +21,7 @@ cartRouter.get('/', requireAdmin, async (req, res, next) => {
 });
 
 // POST /api/cart
-cartRouter.post('/', async (req, res, next) => {
+cartRouter.post('/', requireUser, async (req, res, next) => {
   const { favorites } = req.body;
   if (!req.user) {
     next({
@@ -43,7 +43,7 @@ cartRouter.post('/', async (req, res, next) => {
 });
 
 // POST /api/cart/:cartId/cars
-cartRouter.post('/:cartId/cars', async (req, res, next) => {
+cartRouter.post('/:cartId/cars', requireUser, async (req, res, next) => {
   const { cartId } = req.params;
   const { carId } = req.body;
   const car = await getCarsById(carId);
@@ -64,12 +64,18 @@ cartRouter.post('/:cartId/cars', async (req, res, next) => {
   }
 });
 
+
+//! NEEDS LOOKED AT
 // PATCH /api/cart/:cartId
-cartRouter.patch('/:cartId', async (req, res, next) => {
+cartRouter.patch('/:cartId', requireUser, async (req, res, next) => {
   const user = req.user;
   const { cartId } = req.params;
   const { isActive, favorites } = req.body;
-  const updateFields = { id: cartId };
+  
+  console.log(req.body)
+
+  let updateFields = {};
+
   if (!user) {
     next({
       error: "No user found",
@@ -77,31 +83,43 @@ cartRouter.patch('/:cartId', async (req, res, next) => {
       name: "Unauthorized Error"
     })
   }
-  if (isActive === true || isActive === false) {  
+
+  if (isActive) { 
+    updateFields.cartId = cartId, 
     updateFields.isActive = isActive;
   }
   if (favorites) {
+    updateFields.cartId = cartId,
     updateFields.favorites = favorites;
   }
+
+
   try {
-    if (cartId === 'undefined') {
-      throw ({
-        error: "Unauthorized",
-        name: "User",
-        message:  "Cart id is undefined!"
-      })
-    } else  {
-      const cart = await getCartById(cartId);
-      if (user.id !== cart.creatorId) {
-        res.status(403).send({
-          error: "Unauthorized to update this cart",
-          message: UnauthorizedUpdateError(req.user.username, cart.id),
-          name: "Unauthorized Update Error"
-        });
-      }
-    }
+    // if (cartId === 'undefined') {
+    //   throw ({
+    //     error: "Unauthorized",
+    //     name: "User",
+    //     message:  "Cart id is undefined!"
+    //   })
+    // } else  {
+    //   const cart = await getCartById(cartId);
+
+    //   console.log(cart)
+
+    //   if (user.id !== cart.creatorId) {
+    //     res.status(403).send({
+    //       error: "Unauthorized to update this cart",
+    //       message: UnauthorizedUpdateError(req.user.username, cart.id),
+    //       name: "Unauthorized Update Error"
+    //     });
+    //   }
+    // }
+
+    console.log(updateFields)
     const updatedCart = await updateCart(updateFields);
     res.send(updatedCart);
+
+
   } catch (error) {
     next(error);
   }
