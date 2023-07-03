@@ -6,12 +6,12 @@ Cars:
 			/api/cars/:carId/cart    			<get "Active" carts which contain the provided carID>  <<Ajax inputs: { carId }>>
 			/api/cars				 							<get all cars>
 		POST:
-			/api/cars				 		 					<create new car - checks to see if there is an existing car - requires isAdmin = true>  <<Ajax inputs: { manufacturer, model, type, color, price } }>>
+			/api/cars				 		 					<create new car - checks to see if there is an existing car - requires isAdmin = true>  <<Ajax inputs: { manufacturer, model, type, color, price } >>
 		PATCH: 
 			/api/cars/:carId		  		 		<updates an existing car - requires isAdmin = true>  <<Ajax inputs: { carId }>>
 		DELETE:
 			/api/cars/:carID							<deletes a car from the database - requires isAdmin = true>  <<Ajax inputs: { carId }>>
-			
+
 
 Cart_Items:
 

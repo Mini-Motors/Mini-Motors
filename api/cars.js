@@ -33,7 +33,7 @@ carsRouter.get('/:carId/cart', async (req, res, next) => {
   } 
 });
 
-// GET /cars
+// GET /api/cars
 carsRouter.get("/", async (req, res, next) => {
   try {
     const cars = await getAllCars();
@@ -63,7 +63,7 @@ carsRouter.post("/", requireUser, requireAdmin, async (req, res, next) => {
   }
 });
 
-// PATCH /cars/:carId
+// PATCH /api/cars/:carId
 carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) => {
   const { carId } = req.params;
   const updateFields = {};
@@ -114,7 +114,7 @@ carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) =>
   }
 });
 
-// DELETE /cars/:carId
+// DELETE /api/cars/:carId
 carsRouter.delete('/:carId', requireUser, requireAdmin, async (req, res, next) => {
   const { carId } = req.params;
   try {
@@ -128,7 +128,7 @@ carsRouter.delete('/:carId', requireUser, requireAdmin, async (req, res, next) =
 
 
 //! Extra Needed?
-// GET/cars/:id
+// GET /api/cars/:id
 carsRouter.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -146,7 +146,7 @@ carsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-//GET/cars/:manufacturer
+//GET /api/cars/:manufacturer
 carsRouter.get("/:manufacturer", async (req, res, next) => {
   const { manufacturer } = req.params;
   try {
@@ -157,7 +157,7 @@ carsRouter.get("/:manufacturer", async (req, res, next) => {
   }
 });
 
-// GET /cars/:model
+// GET /api/cars/:model
 carsRouter.get("/:model", async (req, res, next) => {
   const { model } = req.params;
   try {
@@ -168,7 +168,7 @@ carsRouter.get("/:model", async (req, res, next) => {
   }
 });
 
-// GET /cars/:type
+// GET /api/cars/:type
 carsRouter.get("/:type", async (req, res, next) => {
   const { type } = req.params;
   try {
@@ -179,6 +179,7 @@ carsRouter.get("/:type", async (req, res, next) => {
   }
 });
 
+// GET /api/cars/:color
 carsRouter.get("/:color", requireUser, async (req, res, next) => {
   const { color } = req.params;
 
