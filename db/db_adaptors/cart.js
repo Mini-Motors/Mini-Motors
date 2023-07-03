@@ -180,23 +180,22 @@ async function getActiveCartsByCarId({ id }) {
 }
 
 async function updateCart({ id, ...fields }) {
-  const setFields = Object.keys(fields)
-    .map((key, index) => `"${ key }" = $${ index + 1 }`)
-    .join(', ');
-  if (setFields.length === 0) {
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${ key }" = $${ index + 1 }`
+  ).join(', ');
+  if (setString.length === 0) {
     return;
   }
   try {
     const { rows: [ cart ] } = await client.query(/*sql*/`
       UPDATE cart
-      SET ${ setFields }
+      SET ${ setString }
       WHERE id = ${ id }
       RETURNING *;
     `, Object.values(fields));
     return cart;
   } catch (error) {
-    console.error("Error updating cart!");
-    throw error;
+    console.error("Error updating cart!", error);
   }
 }
 
