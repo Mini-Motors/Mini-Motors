@@ -4,7 +4,7 @@ Cars:
 
 		GET:
 			/api/cars/:carId/cart    		<get "Active" carts which contain the provided carID>  <<Ajax inputs: { carId }>>
-			/api/cars				 <get all cars>
+			/api/cars				<get all cars>
 		POST:
 			/api/cars				<create new car - requires isAdmin = true>  <<Ajax inputs: { manufacturer, model, type, color, price } >>
 		PATCH: 
