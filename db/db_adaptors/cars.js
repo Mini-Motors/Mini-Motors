@@ -100,23 +100,22 @@ async function getCarsByColor(color) {
 }
 
 async function updateCar({ id, ...fields }) {
-  const setFields = Object.keys(fields)
-    .map((key, index) => `"${ key }" = $${ index + 1 }`)
-    .join(', ');
-  if (setFields.length === 0) {
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${ key }" = $${ index + 1 }`
+  ).join(', ');
+  if (setString.length === 0) {
     return;
   }
   try {
     const { rows: [ car ] } = await client.query(/*sql*/`
       UPDATE cars
-      SET ${ setFields }
+      SET ${ setString }
       WHERE id = ${ id }
       RETURNING *;
     `, Object.values(fields));
     return car;
   } catch (error) {
-    console.error("Error updating car!");
-    throw error;
+    console.error("Error updating car!", error);
   }
 }
 

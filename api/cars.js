@@ -65,6 +65,7 @@ carsRouter.post("/", requireUser, requireAdmin, async (req, res, next) => {
 
 // PATCH /api/cars/:carId
 carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) => {
+  const user = req.user;
   const { carId } = req.params;
   const updateFields = {};
   const { manufacturer, model, type, color, price } = req.body;
@@ -74,21 +75,25 @@ carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) =>
   }
 
   if (model) {
-    updateFields.model = model;
+    updateFields.id = carId,
+    updateFields.model = model
   }
 
   if (type) {
-    updateFields.type = type;
+    updateFields.id = carId,
+    updateFields.type = type
   }
 
   if (color) {
-    updateFields.color = color;
+    updateFields.id = carId,
+    updateFields.color = color
   }
 
   if (price) {
-    updateFields.price = price;
+    updateFields.id = carId,
+    updateFields.price = price
   }
-
+  
   try {
     const originalCar = await getCarsById(carId);
     if (!originalCar) {
@@ -99,8 +104,9 @@ carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) =>
       });
     }
 
-    if (user.isAdmin) {
-      const updatedCar = await updateCar(carId, updateFields);
+    console.log(user)
+    if (user.isAdmin === true) {
+      const updatedCar = await updateCar(updateFields);
       res.send(updatedCar);
     } else {
       res.send({
