@@ -39,7 +39,8 @@ Users:
 		GET:
 			/api/users				<gets all created users - requires bearer token and user.isAdmin === true>  
    			/api/users/me				<gets logged in user's information - requires bearer token>
-			/api/users/:username/cart 		<gets a list of user's carts and its attached cart_items - requires bearer token>   <<Ajax inputs: { username }>>
+			/api/users/:username/allCarts 		<gets a list of all user's carts and its attached cart_items - requires bearer token>   <<Ajax inputs: { username }>>
+   			/api/users/:username/activeCarts	<gets a list of user's active carts and its attached cart_items - requires bearer token>   <<Ajax inputs: { username }>>
 		POST:
 			/api/users/register			<allows for registering of a new user - requires username/password> <<Ajax inputs: { username, password, isAdmin }>>
 			/api/users/login			<allows registered user to login - returns JWT bearer token>  <<Ajax inputs: { username, password }>>
