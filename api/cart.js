@@ -1,5 +1,6 @@
 const express = require('express');
 const cartRouter = express.Router();
+const { requireUser, requireAdmin } = require("./utils");
 const { 
   getAllActiveCarts,
   createCart,
@@ -10,7 +11,7 @@ const {
   getCarsById } = require('../db/db_adaptors')
 
 // GET /api/cart
-cartRouter.get('/', async (req, res, next) => {
+cartRouter.get('/', requireAdmin, async (req, res, next) => {
   try {
     const activeCarts = await getAllActiveCarts();
     res.send(activeCarts);

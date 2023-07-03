@@ -1,6 +1,6 @@
 const express = require("express");
 const carsRouter = express.Router();
-const { requireUser } = require("./utils");
+const { requireUser, requireAdmin } = require("./utils");
 const {
   getAllCars,
   getCarsByManufacturer,
@@ -43,7 +43,7 @@ carsRouter.get("/", async (req, res, next) => {
 });
 
 // POST /api/cars
-carsRouter.post("/", async (req, res, next) => {
+carsRouter.post("/", requireUser, requireAdmin, async (req, res, next) => {
   const request = req.body;
   try {
     const existingCar = await getCarsById(request.id);
@@ -62,8 +62,8 @@ carsRouter.post("/", async (req, res, next) => {
   }
 });
 
-// PATCH /cars/:cardId
-carsRouter.patch("/:carId", async (req, res, next) => {
+// PATCH /cars/:carId
+carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) => {
   const { carId } = req.params;
   const updateFields = {};
   const { manufacturer, model, type, color, price } = req.body;
