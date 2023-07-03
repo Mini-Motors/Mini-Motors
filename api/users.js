@@ -8,6 +8,7 @@ const { createUser,
   getUserByUsername, 
   getUser, 
   getUserById,
+  getAllUsers,
   getActiveCartsByUser,
   getAllCartsByUser } = require('../db/db_adaptors');
 
@@ -70,6 +71,30 @@ usersRouter.post('/login', async (req, res, next) => {
   } catch (error) {
     next(error);
   }  
+});
+
+// GET /api/users/
+usersRouter.get('/', requireUser, requireAdmin, async (req, res, next) => {
+  const prefix = 'Bearer ';
+  const auth = req.header('Authorization');
+    if (!auth) {
+      res.status(401).send({
+        error: "Requirements",
+        name: "Login",
+        message: UnauthorizedError()
+      })
+    } else if (auth.startsWith(prefix)) {
+      const token = auth.slice(prefix.length);
+      try {
+        const { id } = jwt.verify(token, JWT_SECRET);
+        if (id) {
+          req.username = await getAllUsers();
+          res.send(req.username);
+        }
+      } catch (error) {
+        next(error);
+      }
+    }
 });
 
 // GET /api/users/me
