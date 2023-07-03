@@ -121,8 +121,8 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
     }
 });
 
-//GET /api/users/:username/cart
-usersRouter.get('/:username/cart', requireUser, async (req, res, next) => {
+//GET /api/users/:username/allCarts
+usersRouter.get('/:username/allCarts', requireUser, async (req, res, next) => {
   const username = req.params.username;
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
@@ -133,6 +133,25 @@ usersRouter.get('/:username/cart', requireUser, async (req, res, next) => {
       if (id) {
         const userAllCarts = await getAllCartsByUser({ username });
         res.send(userAllCarts);
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+//GET /api/users/:username/activeCarts
+usersRouter.get('/:username/activeCarts', requireUser, async (req, res, next) => {
+  const username = req.params.username;
+  const prefix = 'Bearer ';
+  const auth = req.header('Authorization');
+  try {
+    if (auth.startsWith(prefix)) {
+      const token = auth.slice(prefix.length);
+      const { id } = jwt.verify(token, JWT_SECRET);
+      if (id) {
+        const userActiveCarts = await getAllActiveCartsByUser({ username });
+        res.send(userActiveCarts);
       }
     }
   } catch (error) {
