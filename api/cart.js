@@ -64,8 +64,6 @@ cartRouter.post('/:cartId/cars', requireUser, async (req, res, next) => {
   }
 });
 
-
-//! NEEDS LOOKED AT
 // PATCH /api/cart/:cartId
 cartRouter.patch('/:cartId', requireUser, async (req, res, next) => {
   const user = req.user;

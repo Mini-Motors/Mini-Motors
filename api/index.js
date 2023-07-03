@@ -52,7 +52,7 @@ apiRouter.get("/health", (req, res, next) => {
 
 //* Place your routers here
 apiRouter.use("/cars", carsRouter);
-apiRouter.use("/cartItems", cartItemsRouter);
+apiRouter.use("/cart_items", cartItemsRouter);
 apiRouter.use('/cart', cartRouter);
 apiRouter.use('/users', usersRouter);
 

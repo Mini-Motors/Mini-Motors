@@ -41,8 +41,6 @@ cartItemsRouter.delete('/:cartItemId', requireUser, async (req, res, next) => {
   const username = req.user.username;
   try {
     const isValid = await canEditCartItem(id, userId);
-    const cartItem= await getCartItemById(id);
-    const car = await getCarById(cartItem.carId);
     if (!isValid) {
       throw ({
         statusCode: 403,
