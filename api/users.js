@@ -150,7 +150,7 @@ usersRouter.get('/:username/activeCarts', requireUser, async (req, res, next) =>
       const token = auth.slice(prefix.length);
       const { id } = jwt.verify(token, JWT_SECRET);
       if (id) {
-        const userActiveCarts = await getAllActiveCartsByUser({ username });
+        const userActiveCarts = await getActiveCartsByUser({ username });
         res.send(userActiveCarts);
       }
     }
