@@ -9,6 +9,8 @@ Cars:
 			/api/cars				 		 					<create new car - checks to see if there is an existing car>  <<Ajax inputs: { manufacturer, model, type, color, price } }>>
 		PATCH: 
 			/api/cars/:carId		  		 		<updates an existing car>  <<Ajax inputs: { carId }>>
+		DELETE:
+			/api/cars/:carID							<deletes a car from the database -requires Admin>  <<Ajax inputs: { carId }>>
 
 Cart_Items:
 

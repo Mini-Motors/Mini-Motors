@@ -120,6 +120,21 @@ async function updateCar({ id, ...fields }) {
   }
 }
 
+async function destroyCar(id) {
+    try {
+    const { rows: [ car ] } = await client.query(/*sql*/`
+      DELETE 
+      FROM cars
+      WHERE id = $1
+      RETURNING *;
+    `, [ id ]);
+    return car;
+  } catch (error) {
+    console.error("Error deleting car!", error);
+    throw error; 
+  }
+}
+
 // used as a helper inside db/cart.js
 async function attachCarsToCarts(carts) {
   try {
@@ -153,4 +168,5 @@ module.exports = {
   getCarsByColor,
   updateCar,
   attachCarsToCarts,
+  destroyCar
 };

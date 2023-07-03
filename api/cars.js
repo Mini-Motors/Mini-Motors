@@ -10,7 +10,8 @@ const {
   getCarsById,
   updateCar,
   getActiveCartsByCarId,
-  createCar } = require("../db/db_adaptors");
+  createCar,
+  destroyCar } = require("../db/db_adaptors");
 
 
 // GET /api/cars/:carId/cart
@@ -108,6 +109,18 @@ carsRouter.patch("/:carId", requireUser, requireAdmin, async (req, res, next) =>
         message: "Administrator required",
       });
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE /cars/:carId
+carsRouter.delete('/:carId', requireUser, requireAdmin, async (req, res, next) => {
+  const { carId } = req.params;
+  try {
+    const car = await getCarsById(carId);
+    await destroyCar(carId);
+    res.send(car);
   } catch (error) {
     next(error);
   }
