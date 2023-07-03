@@ -3,7 +3,6 @@ const cartItemsRouter = express.Router();
 const { requireUser } = require('./utils');
 const { canEditCartItem, 
   getCartItemById,
-  getCartItemByCartId,
   updateCartItem,
   destroyCartItem } = require('../db/db_adaptors');
 
@@ -15,13 +14,13 @@ cartItemsRouter.patch('/:cartItemId', requireUser, async (req, res, next) => {
   const username = req.user.username;
   try {
     const isValid = await canEditCartItem(id, userId);
-    const cartItem = await getCartItemByCartId(id);
+    const cartItem = await getCartItemById(id);
     const car = await getCarsById(cartItem.carId);
     if (!isValid) {
       throw ({
         error: "Unauthorized",
-        name: "User",
-        message:  UnauthorizedUpdateError(username)
+        name: username,
+        message:  "Not authorized to updated cart item."
       })
     } else {
       const updatedCartItem = await updateCartItem({
@@ -42,14 +41,12 @@ cartItemsRouter.delete('/:cartItemId', requireUser, async (req, res, next) => {
   const username = req.user.username;
   try {
     const isValid = await canEditCartItem(id, userId);
-    const cartItem= await getCartItemById(id);
-    const car = await getCarById(cartItem.carId);
     if (!isValid) {
       throw ({
         statusCode: 403,
         error: "Unauthorized",
-        name: "User",
-        message:  UnauthorizedDeleteError(username, car.manufacturer)
+        name: username,
+        message:  "Not authorized to delete cart item!"
       })
     } else {
       const deletedCartItem = await destroyCartItem(id);

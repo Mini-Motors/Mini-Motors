@@ -1,4 +1,5 @@
 const client = require('../client');
+const { attachCarsToCarts } = require ("./cars")
 
 async function createCart({ creatorId, isActive, favorites }) {
   try {
@@ -14,26 +15,25 @@ async function createCart({ creatorId, isActive, favorites }) {
   }
 }
 
-// example change getRoutineById to getCartById
-async function getRoutineById(id) {
+async function getCartById(id) {
   try {
-    const { rows: [ routine ] } = await client.query(/*sql*/`
+    const { rows: [ cart ] } = await client.query(/*sql*/`
       SELECT *
-      FROM routines
+      FROM cart
       WHERE id = $1;
     `, [ id ]);
-    return routine;
+    return cart;
   } catch (error) {
-    console.error("Error getting routine by id!", error);
+    console.error("Error getting cart by id!", error);
     throw error;
   }
 }
 
-async function getRoutinesWithoutActivities() {
+async function getCartsWithoutCars() {
   try {
     const { rows } = await client.query(/*sql*/`
       SELECT * 
-      FROM routines    
+      FROM cart    
     `);
     return rows;
   } catch (error) {
@@ -42,137 +42,191 @@ async function getRoutinesWithoutActivities() {
   }
 }
 
-async function getAllRoutines() {
+async function getAllCarts() {
   try {
-    const { rows: routines } = await client.query(/*sql*/`
-      SELECT routines.*, users.username AS "creatorName"
-      FROM routines
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, users.username AS "creatorName"
+      FROM cart
       INNER JOIN users
-      ON routines."creatorId" = users.id;   
+      ON cart."creatorId" = users.id;   
     `);
-    return await attachActivitiesToRoutines(routines);
+    return await attachCartsToCars(cart);
   } catch (error) {
-    console.error("Error getting all routines!", error);
+    console.error("Error getting all carts!", error);
     throw error;
   }
 }
 
-async function getAllPublicRoutines() {
+async function getAllFavoriteCarts() {
   try {
-    const { rows: routines } = await client.query(/*sql*/`
-      SELECT routines.*, users.username AS "creatorName"
-      FROM routines
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, users.username AS "creatorName"
+      FROM cart
       INNER JOIN users
-      ON routines."creatorId" = users.id
-      WHERE routines."isPublic" = true;   
+      ON cart."creatorId" = users.id
+      WHERE cart.favorites = true;   
     `);
-    return await attachActivitiesToRoutines(routines);
+    return await attachCarsToCarts(cart);
   } catch (error) {
-    console.error("Error getting all public routines!", error);
+    console.error("Error getting all favorite carts!", error);
     throw error;
   }
 }
 
-
-async function getAllRoutinesByUser({ username }) {
+async function getAllActiveCarts() {
   try {
-    const { rows: routines } = await client.query(/*sql*/`
-      SELECT routines.*, users.username AS "creatorName"
-      FROM routines
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, users.username AS "creatorName"
+      FROM cart
       INNER JOIN users
-      ON routines."creatorId" = users.id
+      ON cart."creatorId" = users.id
+      WHERE cart."isActive" = true;   
+    `);
+    return await attachCarsToCarts(cart);
+  } catch (error) {
+    console.error("Error getting all active carts!", error);
+    throw error;
+  }
+}
+
+async function getAllCartsByUser({ username }) {
+  try {
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, users.username AS "creatorName"
+      FROM cart
+      INNER JOIN users
+      ON cart."creatorId" = users.id
       WHERE users.username = $1;   
     `, [ username ]);
-    return await attachActivitiesToRoutines(routines);
+    return await attachCarsToCarts(cart);
   } catch (error) {
-    console.error("Error getting all routines by user!", error);
+    console.error("Error getting all carts by user!", error);
     throw error;
   }
 }
 
-async function getPublicRoutinesByUser({ username }) {
+async function getFavoriteCartsByUser({ username }) {
   try {
-    const { rows: routines } = await client.query(/*sql*/`
-      SELECT routines.*, users.username AS "creatorName"
-      FROM routines
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, users.username AS "creatorName"
+      FROM cart
       INNER JOIN users
-      ON routines."creatorId" = users.id
-      WHERE users.username = $1 AND routines."isPublic" = true;  
+      ON cart."creatorId" = users.id
+      WHERE users.username = $1 AND cart.favorites = true;  
     `, [ username ]);
-    return await attachActivitiesToRoutines(routines);
+    return await attachCarsToCarts(cart);
   } catch (error) {
-    console.error("Error getting public routines by user!", error);
+    console.error("Error getting favorite carts by user!", error);
     throw error;
   }
 }
 
-async function getPublicRoutinesByActivity({ id }) {
+async function getActiveCartsByUser({ username }) {
   try {
-    const { rows: routines } = await client.query(/*sql*/`
-      SELECT routines.*, 
-        routine_activities."routineId", 
-        routine_activities."activityId", 
-        users.username AS "creatorName"
-      FROM routines
-      INNER JOIN routine_activities
-      ON routines.id = routine_activities."routineId"  
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, users.username AS "creatorName"
+      FROM cart
       INNER JOIN users
-      ON routines."creatorId" = users.id
-      WHERE routine_activities."activityId" = $1 AND routines."isPublic" = true;
-    `, [ id ]);
-    return await attachActivitiesToRoutines(routines);
+      ON cart."creatorId" = users.id
+      WHERE users.username = $1 AND cart."isActive" = true;  
+    `, [ username ]);
+    return await attachCarsToCarts(cart);
   } catch (error) {
-    console.error("Error getting all routines by activity!", error);
+    console.error("Error getting active carts by user!", error);
     throw error;
   }
 }
 
-async function updateRoutine({ id, ...fields }) {
-  const setFields = Object.keys(fields)
-    .map((key, index) => `"${ key }" = $${ index + 1 }`)
-    .join(', ');
-  if (setFields.length === 0) {
+async function getFavoriteCartsByCarId({ id }) {
+  try {
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, 
+        cart_items."cartId", 
+        cart_items."carId", 
+        users.username AS "creatorName"
+      FROM cart
+      INNER JOIN cart_items
+      ON cart.id = cart_items."cartId"  
+      INNER JOIN users
+      ON cart."creatorId" = users.id
+      WHERE cart_items."carId" = $1 AND cart.favorites = true;
+    `, [ id ]);
+    return await attachCarsToCarts(cart);
+  } catch (error) {
+    console.error("Error getting favorite carts by carId!", error);
+    throw error;
+  }
+}
+
+async function getActiveCartsByCarId({ id }) {
+  try {
+    const { rows: cart } = await client.query(/*sql*/`
+      SELECT cart.*, 
+        cart_items."cartId", 
+        cart_items."carId", 
+        users.username AS "creatorName"
+      FROM cart
+      INNER JOIN cart_items
+      ON cart.id = cart_items."cartId"  
+      INNER JOIN users
+      ON cart."creatorId" = users.id
+      WHERE cart_items."carId" = $1 AND cart."isActive" = true;
+    `, [ id ]);
+    return await attachCarsToCarts(cart);
+  } catch (error) {
+    console.error("Error getting active carts by carId!", error);
+    throw error;
+  }
+}
+
+async function updateCart({ id, ...fields }) {
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${ key }" = $${ index + 1 }`
+  ).join(', ');
+  if (setString.length === 0) {
     return;
   }
   try {
-    const { rows: [ routine ] } = await client.query(/*sql*/`
-      UPDATE routines
-      SET ${ setFields }
+    const { rows: [ cart ] } = await client.query(/*sql*/`
+      UPDATE cart
+      SET ${ setString }
       WHERE id = ${ id }
       RETURNING *;
     `, Object.values(fields));
-    return routine;
+    return cart;
   } catch (error) {
-    console.error("Error updating routine!");
-    throw error;
+    console.error("Error updating cart!", error);
   }
 }
 
-async function destroyRoutine(id) {
+async function destroyCart(id) {
   try {
     await client.query(/*sql*/`
-      DELETE FROM routine_activities
-      WHERE "routineId" = $1;
+      DELETE FROM cart_items
+      WHERE "cartId" = $1;
     `, [ id ]);
     await client.query(/*sql*/`
-      DELETE FROM routines
+      DELETE FROM cart
       WHERE id = ${id}
     `);
   } catch (error) {
-    console.error("Error destroying routine!");
+    console.error("Error destroying cart!");
     throw error;
   }
 }
 
 module.exports = {
-  getRoutineById,
-  getRoutinesWithoutActivities,
-  getAllRoutines,
-  getAllPublicRoutines,
-  getAllRoutinesByUser,
-  getPublicRoutinesByUser,
-  getPublicRoutinesByActivity,
-  createRoutine,
-  updateRoutine,
-  destroyRoutine,
+  createCart,
+  getCartById,
+  getCartsWithoutCars,
+  getAllCarts,
+  getAllFavoriteCarts,
+  getAllActiveCarts,
+  getAllCartsByUser,
+  getFavoriteCartsByUser,
+  getActiveCartsByUser,
+  getFavoriteCartsByCarId,
+  getActiveCartsByCarId,
+  updateCart,
+  destroyCart
 };

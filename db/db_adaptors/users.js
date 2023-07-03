@@ -1,14 +1,18 @@
 const client = require('../client');
+const bcrypt = require('bcrypt');
 
 async function createUser({ username, password, isAdmin }) {
+  const SALT_COUNT = 10;
+  const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+
   try {
     const { rows: [ user ] } = await client.query(/*sql*/`
       INSERT INTO users (username, password, "isAdmin") 
       VALUES ($1, $2, $3)
       ON CONFLICT (username) DO NOTHING
       RETURNING *;
-    `, [ username, password, isAdmin ]);
-    // delete user.password;
+    `, [ username, hashedPassword, isAdmin ]);
+    delete user.Password;
     return user;
   } catch (error) {
     console.error("Error creating user!", error);
@@ -19,7 +23,8 @@ async function createUser({ username, password, isAdmin }) {
 async function getAllUsers() {
   try {
     const { rows } = await client.query(/*sql*/`
-      SELECT * FROM users;
+      SELECT * 
+      FROM users;
     `);
     return rows;
   } catch (error) {
@@ -28,24 +33,25 @@ async function getAllUsers() {
   }
 }
 
-async function getUser() {
-  try {
-    const { rows } = await client.query(/*sql*/`
-      SELECT * FROM users LIMIT 1;
-    `);
-    return rows[0];
-  } catch (error) {
-    console.error("Error fetching user!", error);
-    throw error;
+async function getUser({ username, password }) {
+  const user = await getUserByUsername(username);
+  const hashedPassword = user.password;
+  const isValid = await bcrypt.compare(password, hashedPassword)
+  if (isValid) {
+    delete user.password;
+    return user;
   }
 }
 
 async function getUserById(userId) {
   try {
-    const { rows } = await client.query(/*sql*/`
-      SELECT * FROM users WHERE id = $1;
-    `, [userId]);
-    return rows[0];
+    const { rows: [ user ] } = await client.query(/*sql*/`
+      SELECT * 
+      FROM users 
+      WHERE id = $1;
+    `, [ userId ]);
+    delete user.password
+    return user;
   } catch (error) {
     console.error("Error fetching user by ID!", error);
     throw error;
@@ -54,10 +60,12 @@ async function getUserById(userId) {
 
 async function getUserByUsername(username) {
   try {
-    const { rows } = await client.query(/*sql*/`
-      SELECT * FROM users WHERE username = $1;
-    `, [username]);
-    return rows[0];
+    const { rows: [ user ] } = await client.query(/*sql*/`
+      SELECT * 
+      FROM users 
+      WHERE username = $1;
+    `, [ username ]);
+    return user;
   } catch (error) {
     console.error("Error fetching user by username!", error);
     throw error;
@@ -65,7 +73,6 @@ async function getUserByUsername(username) {
 }
 
 module.exports = {
-  // add your database adapter fns here
   getAllUsers,
   createUser,
   getUser, 
