@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { json } from 'body-parser';
+import { trustedTypes } from 'trusted-types';
 
 export const BASE_URL = 'localhost:4000/api';
 
@@ -118,3 +120,79 @@ export const allCars = async () => {
   }
 };
 
+export const getCartsByCarId= async (carId, token) => {
+  try{
+    const response = await fetch(`${BASE_URL}/cars/${carId}/cart`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    const result = await response.json();
+    return result
+  }catch(error){
+    console.error(error)
+  }
+}
+
+export const createCar = async (manufacturer, model, type, color, price, token) => {
+  try{
+    const response = await fetch (`${BASE_URL}/cars`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        manufacturer: manufacturer,
+        model: model,
+        type: type,
+        color: color,
+        price: price, 
+      })
+    })
+    const result = await response.json();
+    return result;
+  }catch(error){
+    console.error(error)
+  }
+}
+
+export const updateCar = async(token, carId, newManufacturer, newModel, newType, newColor, newPrice) => {
+  try{
+    const response = await fetch(`${BASE_URL}/cars/${carId}`, {
+      method: "PATCH",
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }, 
+      body: JSON.stringify({
+        manufacturer: newManufacturer,
+        model: newModel,
+        type: newType,
+        color: newColor,
+        price: newPrice
+      })
+    })
+    const result = await response.json();
+    return result
+  }catch(error){
+    console.error(error)
+  }
+}
+
+export const deleteCar = async(carID, token) => {
+  try{
+    const response = await fetch(`${BASE_URL}/cars/${carID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` 
+      } 
+    })
+    const result = await response.json();
+    return result
+  }catch(error){
+    console.error(error)
+  }
+}
