@@ -1,0 +1,43 @@
+import React, { useState } from "react";
+import { registeredUser } from "../ajax-requests/index.js";
+
+const Login = (props) => {
+  const { setToken, setCurrentUser } = props;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+   
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const user = { username, password };
+    const results = await registeredUser(user);
+      
+    if (!results.error) {
+      setToken(results.token);
+      window.localStorage.setItem("token",results.token);
+      setCurrentUser(username);
+      window.localStorage.setItem("currentUser",username);
+      location.href = "/";
+    } else {
+      window.alert("Username and/or Password not accepted!")
+    }
+  };
+
+  return (
+    <form id="login" onSubmit={ handleSubmit }>
+      <input
+        type="text"
+        placeholder="Enter Username"
+        onChange={(event) => setUsername(event.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Enter Password"
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <button type="submit">Login</button>
+    </form>
+  )
+}
+
+export default Login;

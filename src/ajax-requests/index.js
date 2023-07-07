@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { json } from 'body-parser';
-import { trustedTypes } from 'trusted-types';
 
 export const BASE_URL = 'localhost:4000/api';
 
