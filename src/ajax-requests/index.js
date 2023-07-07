@@ -196,3 +196,40 @@ export const deleteCar = async(carID, token) => {
     console.error(error)
   }
 }
+
+// CART ITEMS 
+
+export const updateCartItem = async (cartItemId, token, currentPrice) => {
+  try {
+    const response = await fetch(`${BASE_URL}/cart_items/${cartItemId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        currentPrice: currentPrice,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteCartItem = async (cartItemId, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/cart_items/${cartItemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
