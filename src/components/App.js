@@ -3,8 +3,8 @@ import React, { useState, useEffect, Component } from 'react';
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../ajax-requests';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Login, Register, Home } from "./";
+import { Route } from 'react-router-dom';
+import { Login, Register, Home, Cart } from "./";
 import '../style/App.css';
 
 
@@ -13,11 +13,10 @@ const App = () => {
   const [ token, setToken] = useState(false);
   const [ cartId, setCartId ] = useState('');
   const [ currentUser, setCurrentUser ] = useState('');
-    const [ isAdmin, setIsAdmin ] = useState(false);
-
-
-
-
+  const [ isAdmin, setIsAdmin ] = useState(false);
+  const [ isActive, setIsActive ] = useState(true);
+  const [ isFavorites, setIsFavorites ] = useState(false);
+  
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
     // first, create an async function that will wrap your axios service adapter
@@ -34,40 +33,46 @@ const App = () => {
 
   return (
     <div className="app-container">
-    
-
-    <Router>
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
 
       <h2 className="homeTitle">Mini-Motors</h2>
       <h3>Scale model replicas of your favorite cars!</h3>
+  
+        <Route exact path="/" element={ 
+          <Home 
+          />}
+        />
 
-        <Switch>
-          <Route exact path="/" component={ 
-            <Home 
-            />}
-          />
+        <Route path="/login" element={ 
+          <Login
+            currentUser={ currentUser }
+            setCurrentUser={ setCurrentUser }
+            cartId={ cartId } 
+            setCartId={ setCartId }
+            setToken={ setToken } 
+          />}
+        />
 
-          <Route path="/login" component={ 
-            <Login
-              currentUser={ currentUser }
-              setCurrentUser={ setCurrentUser }
-              cartId={ cartId } 
-              setCartId={ setCartId }
-              setToken={ setToken } 
-            />}
-          />
+        <Route path="/register" element={ 
+          <Register 
+            setToken={ setToken }
+            isAdmin={ isAdmin } 
+            setIsAdmin={ setIsAdmin } 
+          />}
+        />
 
-          <Route path="/register" component={ 
-            <Register 
-              setToken={ setToken }
-              isAdmin={ isAdmin } 
-              setIsAdmin={ setIsAdmin } 
-            />}
-          />
-        </Switch>  
-    </Router>
+        <Route path="/cart" element={ 
+          <Cart 
+            setToken={ setToken }
+            isAdmin={ isAdmin } 
+            setIsAdmin={ setIsAdmin } 
+            setIsActive={ setIsActive }
+            isActive={ isActive }
+            setIsFavorites={ setIsFavorites }
+            isFavorites={ isFavorites }
+          />}
+        />
 
     </div>
   );

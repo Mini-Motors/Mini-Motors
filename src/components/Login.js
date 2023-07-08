@@ -6,7 +6,6 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
    
-
   async function handleSubmit(event) {
     event.preventDefault();
     const user = { username, password };
