@@ -16,7 +16,7 @@ const App = () => {
   const [ isAdmin, setIsAdmin ] = useState(false);
   const [ isActive, setIsActive ] = useState(true);
   const [ isFavorites, setIsFavorites ] = useState(false);
-  const [ currentCar, setCurrentCar ] = useState([]);
+  const [ currentCar, setCurrentCar ] = useState("");
   
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
