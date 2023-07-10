@@ -231,3 +231,102 @@ export const deleteCartItem = async (cartItemId, token) => {
     console.error(error);
   }
 };
+
+//Cart
+export const getCart = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/cart`, {
+      // method: "GET",
+      headers: {
+      'Content-Type': 'application/json',
+      }
+    });
+    const result = await response.json();
+    return result;
+    } catch (err) {
+    console.error(err);
+    }
+  }
+
+  export const createCart = async (cart, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cart`, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+          cart
+        )
+      });
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  export const updateCart = async (cartId, token, cartItem) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cart/${cartId}`, {
+        method: "PATCH",
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+          cartItem
+        )
+      });
+      const result = await response.json();
+      console.log(result);
+      return result;
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  export const deleteCart = async (cartId, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cart/${cartId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  export const attachCart = async (cartId, userId) => {
+    try {
+      const response = await fetch (`${BASE_URL}/cart/${cartId}/${userId}`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          userId
+        )
+      });
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+      
+    } catch (err) {
+      console.error(err);
+    }
+  }
