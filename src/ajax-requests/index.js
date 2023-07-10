@@ -120,7 +120,7 @@ export const allCars = async () => {
 
 export const getCarById = async (id) => {
   try {
-    const response = await fetch(`${BASE_URL}/cars/:id`, {
+    const response = await fetch(`${BASE_URL}/cars/${id}`, {
       headers: {
         "Content-Type": "application/json",
       }

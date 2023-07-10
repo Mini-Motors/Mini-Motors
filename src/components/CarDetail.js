@@ -4,13 +4,13 @@ import { getCarById } from '../ajax-requests/index'
 const CarDetail = (props) => {
 
 const { currentCar } = props;
+const [ carDetails, setCarDetails ] = useState({});
 
 useEffect(() => {
   async function getCarDetail () {
     try {
-      console.log(currentCar)
-      const car = await getCarById(currentCar);
-      return car;
+      const carDetail = await getCarById(currentCar);
+      setCarDetails(carDetail);
     } catch (error) {
       console.error(`An error has occurred: ${error}`);
     } 
@@ -18,8 +18,15 @@ useEffect(() => {
   getCarDetail();
 }, []);
 
+useEffect (() => {
+  console.log(carDetails);
+}, [ carDetails ])
+
   return (
-    <h1>Car Details</h1>
+    <Fragment>
+      <h1>Car Details</h1>
+      <h2>{carDetails.manufacturer}</h2>
+    </Fragment>
   )
 };
 
