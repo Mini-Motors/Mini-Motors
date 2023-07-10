@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = 'localhost:4000/api';
+export const BASE_URL = 'http://localhost:4000/api';
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
