@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../ajax-requests';
-import { Route } from 'react-router-dom';
-import { Login, Register, Home, Cart } from "./";
+import { Route, Routes } from 'react-router-dom';
+import { Login, Register, Home, Cart, CarDetail } from "./";
 import '../style/App.css';
 
 
@@ -16,6 +16,7 @@ const App = () => {
   const [ isAdmin, setIsAdmin ] = useState(false);
   const [ isActive, setIsActive ] = useState(true);
   const [ isFavorites, setIsFavorites ] = useState(false);
+  const [ currentCar, setCurrentCar ] = useState("");
   
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -38,42 +39,60 @@ const App = () => {
 
       <h2 className="homeTitle">Mini-Motors</h2>
       <h3>Scale model replicas of your favorite cars!</h3>
-  
-        <Route exact path="/" element={ 
+
+      <Routes>
+        <Route path="/" element={ 
           <Home 
+            token={ token } 
+            isAdmin={ isAdmin } 
+            setCurrentCar={ setCurrentCar } 
+            currentCar={ currentCar } 
           />}
         />
 
         <Route path="/login" element={ 
-          <Login
-            currentUser={ currentUser }
-            setCurrentUser={ setCurrentUser }
+          <Login 
+            currentUser={ currentUser } 
+            setCurrentUser={ setCurrentUser } 
             cartId={ cartId } 
-            setCartId={ setCartId }
+            setCartId={ setCartId } 
             setToken={ setToken } 
           />}
         />
 
         <Route path="/register" element={ 
           <Register 
-            setToken={ setToken }
+            setToken={ setToken } 
             isAdmin={ isAdmin } 
             setIsAdmin={ setIsAdmin } 
+            setCurrentUser={ setCurrentUser } 
           />}
         />
 
         <Route path="/cart" element={ 
-          <Cart 
-            setToken={ setToken }
+          <Cart setToken={ setToken } 
             isAdmin={ isAdmin } 
             setIsAdmin={ setIsAdmin } 
-            setIsActive={ setIsActive }
-            isActive={ isActive }
-            setIsFavorites={ setIsFavorites }
-            isFavorites={ isFavorites }
+            setIsActive={ setIsActive } 
+            isActive={ isActive } 
+            setIsFavorites={ setIsFavorites } 
+            isFavorites={ isFavorites } 
           />}
         />
 
+        <Route path="/cardetail" element={ 
+          <CarDetail 
+            setToken={ setToken } 
+            isAdmin={ isAdmin } 
+            setIsAdmin={ setIsAdmin } 
+            setIsActive={ setIsActive } 
+            isActive={ isActive } 
+            setIsFavorites={ setIsFavorites } 
+            isFavorites={ isFavorites } 
+            currentCar={ currentCar } 
+          />} 
+        />
+      </Routes>
     </div>
   );
 };

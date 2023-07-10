@@ -1,18 +1,17 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { allCars } from '../ajax-requests/index.js'
+import { allCars as fetchAllCars } from '../ajax-requests/index.js'
 
 
-const Home = () => {
+const Home = (props) => {
 
-
-const [ allCars, setAllCars ] = useState({});
+const { token, setCurrentCar, currentCar } = props;
+const [ allCars, setAllCars ] = useState([]);
 
 useEffect(() => {
   async function getAllCars () {
     try {
-      const cars = await allCars();
-      setAllCars(cars);
-      console.log(allCars);
+      const cars = await fetchAllCars();
+      setAllCars(cars)
     } catch (error) {
       console.error(`An error has occurred: ${error}`);
     }
@@ -20,22 +19,42 @@ useEffect(() => {
   getAllCars();
 }, []);
 
+useEffect(() => {
+  console.log(allCars)
+  console.log(currentCar)
+},  [ allCars, currentCar ] );
+
   return (
     <Fragment>
-
-      <h1> Placeholder for home </h1>
-
+      <h1> All Mini Motor Listings </h1>
       { allCars && allCars.map((car) => {
         return (
           <Fragment key={ car.id }>
-
+            <div className="cards">
+              <div className="card-item">
+                <div className="card-body">
+                  <img className="card-img" src="https://picsum.photos/250/200?image=480" alt="" />
+                  <h2 className="card-title center">Manufacturer</h2>
+                  <p className="card-text">{car.manufacturer}</p>
+                  <h2 className="card-title center">Model</h2>
+                  <p className="card-text">{car.model}</p>
+                  <h2 className="card-title center">Type</h2>
+                  <p className="card-text">{car.type}</p>
+                  <h2 className="card-title center">Color</h2>
+                  <p className="card-text">{car.color}</p>
+                  <h2 className="card-title center">Price</h2>
+                  <p className="card-text">{car.price}</p>
+                  <div className="card-footer center">
+                    <a className="btn" href="#" onClick={() => setCurrentCar(car.id)}>Details { car.id }</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </Fragment>
           )
         }) 
       }
-
     </Fragment>
-    
   )
 };
 

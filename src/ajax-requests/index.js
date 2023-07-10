@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = 'localhost:4000/api';
+export const BASE_URL = 'http://localhost:4000/api';
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
@@ -107,6 +107,20 @@ export const myData = async (token) => {
 export const allCars = async () => {
   try {
     const response = await fetch(`${BASE_URL}/cars`, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCarById = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/cars/${id}`, {
       headers: {
         "Content-Type": "application/json",
       }

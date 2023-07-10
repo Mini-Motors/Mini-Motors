@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUser } from "../ajax-requests/index.js";
 
-const Register = ({ setToken, token, setCurrentUser, setIsAdmin }) => {
+const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
   const [ username, setUsername ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
@@ -19,9 +19,9 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin }) => {
 
       if (!results.error) {
         setToken(results.token);
-        window.localStorage.setItem("token",results.token);
+        window.localStorage.setItem("token", results.token);
         setCurrentUser(username);
-        window.localStorage.setItem("currentUser",username);
+        window.localStorage.setItem("currentUser", username);
         location.href = "/";
       } else if (results.error === "A user by that username already exists") {
         alert("A user by that username already exists! Please create a different username or login if this is your username.")
@@ -35,6 +35,7 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin }) => {
       { !token
         ? <Fragment>
             <Link to="/login">Login</Link>
+            <br/>
             <Link to="/">Back to Car Listings</Link>
           </Fragment>
         : window.location.href="/"
@@ -65,7 +66,7 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin }) => {
             <label id="checkbox">Make Admin?</label>
             <input 
               type="checkbox"
-              defaultChecked={ isAdmin }
+              value="false"
               onClick={(event) => {setAdmin(event.target.checked)}}
             />            
             <button type="submit">Register</button>
