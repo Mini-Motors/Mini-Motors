@@ -4,7 +4,7 @@ import { allCars as fetchAllCars } from '../ajax-requests/index.js'
 
 const Home = (props) => {
 
-const { token , setCurrentCar, currentCar } = props;
+const { token, setCurrentCar, currentCar } = props;
 const [ allCars, setAllCars ] = useState([]);
 
 useEffect(() => {
