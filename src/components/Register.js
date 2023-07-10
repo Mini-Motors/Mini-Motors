@@ -66,7 +66,7 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
             <label id="checkbox">Make Admin?</label>
             <input 
               type="checkbox"
-              defaultChecked={ isAdmin }
+              value="false"
               onClick={(event) => {setAdmin(event.target.checked)}}
             />            
             <button type="submit">Register</button>
