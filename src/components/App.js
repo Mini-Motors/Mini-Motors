@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../ajax-requests';
 import { Route, Routes } from 'react-router-dom';
-import { Login, Register, Home, Cart } from "./";
+import { Login, Register, Home, Cart, CarDetail } from "./";
 import '../style/App.css';
 
 
@@ -16,6 +16,7 @@ const App = () => {
   const [ isAdmin, setIsAdmin ] = useState(false);
   const [ isActive, setIsActive ] = useState(true);
   const [ isFavorites, setIsFavorites ] = useState(false);
+  const [ currentCar, setCurrentCar ] = useState([]);
   
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -40,10 +41,11 @@ const App = () => {
       <h3>Scale model replicas of your favorite cars!</h3>
 
         <Routes>
-        <Route path="/" element={ <Home token={ token } isAdmin={ isAdmin } />} />
+        <Route path="/" element={ <Home token={ token } isAdmin={ isAdmin } currentCar={ currentCar } setCurrentCar={ setCurrentCar } />} />
         <Route path="/login" element={ <Login currentUser={ currentUser } setCurrentUser={ setCurrentUser } cartId={ cartId } setCartId={ setCartId } setToken={ setToken } />} />
         <Route path="/register" element={ <Register setToken={ setToken } isAdmin={ isAdmin } setIsAdmin={ setIsAdmin } setCurrentUser={ setCurrentUser } />} />
         <Route path="/cart" element={ <Cart setToken={ setToken } isAdmin={ isAdmin } setIsAdmin={ setIsAdmin } setIsActive={ setIsActive } isActive={ isActive } setIsFavorites={ setIsFavorites } isFavorites={ isFavorites } />} />
+        <Route path="/cardetail" element={ <CarDetail setToken={ setToken } isAdmin={ isAdmin } setIsAdmin={ setIsAdmin } setIsActive={ setIsActive } isActive={ isActive } setIsFavorites={ setIsFavorites } isFavorites={ isFavorites } currentCar={ currentCar } />} />
       </Routes>
 
     </div>

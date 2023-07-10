@@ -4,7 +4,7 @@ import { allCars as fetchAllCars } from '../ajax-requests/index.js'
 
 const Home = (props) => {
 
-const { token } = props;
+const { token , currentCar, setCurrentCar } = props;
 const [ allCars, setAllCars ] = useState([]);
 
 useEffect(() => {
@@ -44,7 +44,7 @@ useEffect(() => {
                   <h2 class="card-title center">Price</h2>
                   <p class="card-text">{car.price}</p>
                   <div class="card-footer center">
-                    <a class="btn" href="">Details</a>
+                    <a class="btn" href="/cardetail" onClick={() => setCurrentCar(car.id)}>Details</a>
                   </div>
                 </div>
               </div>
