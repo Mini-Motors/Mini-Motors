@@ -45,7 +45,7 @@ useEffect(() => {
                   <h2 className="card-title center">Price</h2>
                   <p className="card-text">{car.price}</p>
                   <div className="card-footer center">
-                    <a className="btn" href="/cardetail" onClick={() => setCurrentCar(car.id)}>Details { car.id }</a>
+                    <a className="btn" href="#" onClick={() => setCurrentCar(car.id)}>Details { car.id }</a>
                   </div>
                 </div>
               </div>
