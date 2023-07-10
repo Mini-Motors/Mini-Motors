@@ -40,7 +40,7 @@ const App = () => {
       <h2 className="homeTitle">Mini-Motors</h2>
       <h3>Scale model replicas of your favorite cars!</h3>
 
-        <Routes>
+      <Routes>
         <Route path="/" element={ <Home token={ token } isAdmin={ isAdmin } setCurrentCar={ setCurrentCar } currentCar={ currentCar } />} />
         <Route path="/login" element={ <Login currentUser={ currentUser } setCurrentUser={ setCurrentUser } cartId={ cartId } setCartId={ setCartId } setToken={ setToken } />} />
         <Route path="/register" element={ <Register setToken={ setToken } isAdmin={ isAdmin } setIsAdmin={ setIsAdmin } setCurrentUser={ setCurrentUser } />} />
