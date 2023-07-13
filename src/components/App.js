@@ -7,7 +7,6 @@ import { Route, Routes } from 'react-router-dom';
 import { Login, Register, Home, Cart, CarDetail } from "./";
 import '../style/App.css';
 
-
 const App = () => {
   const [ APIHealth, setAPIHealth ] = useState('');
   const [ token, setToken] = useState("");
@@ -34,15 +33,12 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1>Hello, World!</h1>
-      <p>API Status: {APIHealth}</p>
 
-      <h2 className="homeTitle">Mini-Motors</h2>
-      <h3>Scale model replicas of your favorite cars!</h3>
 
       <Routes>
         <Route path="/" element={ 
           <Home 
+            APIHealth={ APIHealth }
             token={ token } 
             isAdmin={ isAdmin } 
             setCurrentCar={ setCurrentCar } 

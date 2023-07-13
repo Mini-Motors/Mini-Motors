@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUser } from "../ajax-requests/index.js";
+import '../style/Register.css';
 
 const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
   const [ username, setUsername ] = useState("");
@@ -14,8 +15,9 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
       alert("Passwords don't match!")
     } else {
       setIsAdmin(admin)
-      const user = { username, password, admin };
+      const user = { username, password, isAdmin };
       const results = await registerUser(user);
+      console.log(results);
 
       if (!results.error) {
         setToken(results.token);
@@ -23,57 +25,40 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
         setCurrentUser(username);
         window.localStorage.setItem("currentUser", username);
         location.href = "/";
-      } else if (results.error === "A user by that username already exists") {
+      } else if (results.message === "Username is already taken. Please choose another!") {
         alert("A user by that username already exists! Please create a different username or login if this is your username.")
+      } else if (results.message === "Password must be greater than 8 character!") {
+        alert("Your password must be greater than 8 characters.  Please try again.")
       }
     }
   }
 
   return (
-    <main>
-      <nav id="navbar">
-      { !token
-        ? <Fragment>
-            <Link to="/login">Login</Link>
-            <br/>
-            <Link to="/">Back to Car Listings</Link>
-          </Fragment>
-        : window.location.href="/"
-      }
-      </nav>
-      <section className="registerContainer">
-        <div id="register">
-          <form onSubmit={ handleSubmit }>
-          <h2>Create a New Account</h2>
-            <input
-              type="text"
-              placeholder="Create Username"
-              onChange={(event) => setUsername(event.target.value)} // passing 'event' captures the input
-              required
-            />
-            <input
-              type="password"
-              placeholder="Create Password"
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Re-enter Password"
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              required
-            />
-            <label id="checkbox">Make Admin?</label>
-            <input 
-              type="checkbox"
-              value="false"
-              onClick={(event) => {setAdmin(event.target.checked)}}
-            />            
-            <button type="submit">Register</button>
-          </form>
+    <div className="register-page">
+      <div className="form">
+        <div className="register">
+          <div className="register-header">
+            <h3>REGISTER</h3>
+            <p>Please enter your credentials to register.</p>
+          </div>
         </div>
-      </section>
-    </main>
+        <form className="register-form" onSubmit={ handleSubmit }>
+          <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)} required />
+          <input type="password" placeholder="password" onChange={(event) => setPassword(event.target.value)} required />
+          <input type="password" placeholder="re-enter password" onChange={(event) => setConfirmPassword(event.target.value)} required/>
+          <button type="submit">Register</button>
+          <br/>
+          <br/>
+          { !token
+          ? <Fragment>
+              <p className="message">Already registered? <a href="/login">Login Page</a></p>
+              <p className="message">Get outta here...<a href="/">Take me home!</a></p>
+            </Fragment>
+          : window.location.href="/"
+          }
+        </form>
+      </div>
+    </div>
   )
 }
 

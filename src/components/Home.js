@@ -4,7 +4,7 @@ import { allCars as fetchAllCars } from '../ajax-requests/index.js'
 
 const Home = (props) => {
 
-const { token, setCurrentCar, currentCar } = props;
+const { token, setCurrentCar, currentCar, APIHealth } = props;
 const [ allCars, setAllCars ] = useState([]);
 
 useEffect(() => {
@@ -26,6 +26,12 @@ useEffect(() => {
 
   return (
     <Fragment>
+      <h1>Hello, World!</h1>
+      <p>API Status: {APIHealth}</p>
+
+      <h2 className="homeTitle">Mini-Motors</h2>
+      <h3>Scale model replicas of your favorite cars!</h3>
+
       <h1> All Mini Motor Listings </h1>
       { allCars && allCars.map((car) => {
         return (
