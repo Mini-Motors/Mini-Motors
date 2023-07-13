@@ -10,7 +10,7 @@ import '../style/App.css';
 
 const App = () => {
   const [ APIHealth, setAPIHealth ] = useState('');
-  const [ token, setToken] = useState(false);
+  const [ token, setToken] = useState("");
   const [ cartId, setCartId ] = useState('');
   const [ currentUser, setCurrentUser ] = useState('');
   const [ isAdmin, setIsAdmin ] = useState(false);
