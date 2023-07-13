@@ -37,7 +37,7 @@ const Login = (props) => {
 
   return (
       <div className="login-page">
-      <div className="form">
+      <div className="form" onSubmit={ handleSubmit }>
         <div className="login">
           <div className="login-header">
             <h3>LOGIN</h3>
@@ -47,8 +47,9 @@ const Login = (props) => {
         <form className="login-form">
           <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)}/>
           <input type="password" placeholder="password" onChange={(event) => setPassword(event.target.value)}/>
-          <button>login</button>
+          <button type="submit">login</button>
           <p className="message">Not registered? <a href="/register">Create an account</a></p>
+          <p className="message">Get outta here...<a href="/">Take me home!</a></p>
         </form>
       </div>
     </div>

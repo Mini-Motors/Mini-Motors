@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { allCars as fetchAllCars } from '../ajax-requests/index.js'
-import '../style/Home.css';
+
 
 const Home = (props) => {
 

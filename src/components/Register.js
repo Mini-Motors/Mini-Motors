@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUser } from "../ajax-requests/index.js";
+import '../style/Register.css';
 
 const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
   const [ username, setUsername ] = useState("");
@@ -30,50 +31,31 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
   }
 
   return (
-    <main>
-      <nav id="navbar">
-      { !token
-        ? <Fragment>
-            <Link to="/login">Login</Link>
-            <br/>
-            <Link to="/">Back to Car Listings</Link>
-          </Fragment>
-        : window.location.href="/"
-      }
-      </nav>
-      <section className="registerContainer">
-        <div id="register">
-          <form onSubmit={ handleSubmit }>
-          <h2>Create a New Account</h2>
-            <input
-              type="text"
-              placeholder="Create Username"
-              onChange={(event) => setUsername(event.target.value)} // passing 'event' captures the input
-              required
-            />
-            <input
-              type="password"
-              placeholder="Create Password"
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Re-enter Password"
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              required
-            />
-            <label id="checkbox">Make Admin?</label>
-            <input 
-              type="checkbox"
-              value="false"
-              onClick={(event) => {setAdmin(event.target.checked)}}
-            />            
-            <button type="submit">Register</button>
-          </form>
+    <div className="register-page">
+      <div className="form" onSubmit= { handleSubmit }>
+        <div className="register">
+          <div className="register-header">
+            <h3>REGISTER</h3>
+            <p>Please enter your credentials to register.</p>
+          </div>
         </div>
-      </section>
-    </main>
+        <form className="register-form">
+          <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)} required />
+          <input type="password" placeholder="password" onChange={(event) => setPassword(event.target.value)} required />
+          <input type="password" placeholder="re-enter password" onChange={(event) => setConfirmPassword(event.target.value)} required/>
+          <button type="submit ">Register</button>
+          <br/>
+          <br/>
+          { !token
+          ? <Fragment>
+              <p className="message">Already registered? <a href="/login">Login Page</a></p>
+              <p className="message">Get outta here...<a href="/">Take me home!</a></p>
+            </Fragment>
+          : window.location.href="/"
+          }
+        </form>
+      </div>
+    </div>
   )
 }
 
