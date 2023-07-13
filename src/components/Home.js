@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { allCars as fetchAllCars } from '../ajax-requests/index.js'
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const Home = (props) => {
 
 const { token, setCurrentCar, currentCar, APIHealth } = props;
 const [ allCars, setAllCars ] = useState([]);
+let {carId} = useParams
+const navigate=useNavigate();
 
 useEffect(() => {
   async function getAllCars () {
@@ -36,22 +39,20 @@ useEffect(() => {
       { allCars && allCars.map((car) => {
         return (
           <Fragment key={ car.id }>
-            <div className="cards">
-              <div className="card-item">
+            <div className="cards" >
+              <div className="card-item"onClick={() => {
+                      setCurrentCar(car);
+                      console.log("onClick firing");
+                      carId=car.id;
+                      navigate(`/${carId}`);
+                      }}>
                 <div className="card-body">
                   <img className="card-img" src="https://picsum.photos/250/200?image=480" alt="" />
-                  <h2 className="card-title center">Manufacturer</h2>
-                  <p className="card-text">{car.manufacturer}</p>
                   <h2 className="card-title center">Model</h2>
                   <p className="card-text">{car.model}</p>
-                  <h2 className="card-title center">Type</h2>
-                  <p className="card-text">{car.type}</p>
-                  <h2 className="card-title center">Color</h2>
-                  <p className="card-text">{car.color}</p>
                   <h2 className="card-title center">Price</h2>
                   <p className="card-text">{car.price}</p>
                   <div className="card-footer center">
-                    <a className="btn" href="#" onClick={() => setCurrentCar(car.id)}>Details { car.id }</a>
                   </div>
                 </div>
               </div>
