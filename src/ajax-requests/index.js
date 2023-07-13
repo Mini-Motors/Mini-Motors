@@ -284,7 +284,7 @@ export const getCart = async () => {
     }
   }
 
-  export const updateCart = async (cartId, token, cartItem) => {
+  export const updateCart = async (token, cartId, carId) => {
     try {
       const response = await fetch(`${BASE_URL}/cart/${cartId}`, {
         method: "PATCH",
@@ -293,7 +293,7 @@ export const getCart = async () => {
         'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(
-          cartItem
+          carId
         )
       });
       const result = await response.json();

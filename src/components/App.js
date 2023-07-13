@@ -12,7 +12,7 @@ const App = () => {
   const [ APIHealth, setAPIHealth ] = useState('');
   const [ token, setToken] = useState(false);
   const [ cartId, setCartId ] = useState('');
-  const [ currentUser, setCurrentUser ] = useState('');
+  const [ currentUser, setCurrentUser ] = useState({});
   const [ isAdmin, setIsAdmin ] = useState(false);
   const [ isActive, setIsActive ] = useState(true);
   const [ isFavorites, setIsFavorites ] = useState(false);
@@ -80,16 +80,11 @@ const App = () => {
           />}
         />
 
-        <Route path="/cardetail" element={ 
+        <Route path="/:carId" element={ 
           <CarDetail 
-            setToken={ setToken } 
-            isAdmin={ isAdmin } 
-            setIsAdmin={ setIsAdmin } 
-            setIsActive={ setIsActive } 
-            isActive={ isActive } 
-            setIsFavorites={ setIsFavorites } 
-            isFavorites={ isFavorites } 
-            currentCar={ currentCar } 
+            currentCar={ currentCar }
+            cartId={ cartId } 
+            token={ token }
           />} 
         />
       </Routes>
