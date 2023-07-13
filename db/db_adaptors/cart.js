@@ -128,7 +128,7 @@ async function getActiveCartsByUser({ username }) {
       FROM cart
       INNER JOIN users
       ON cart."creatorId" = users.id
-      WHERE users.username = $1 AND cart."isActive" = true;  
+      WHERE users.username = $1 AND cart."isActive" = true AND cart.favorites = false;  
     `, [ username ]);
     return await attachCarsToCarts(cart);
   } catch (error) {
