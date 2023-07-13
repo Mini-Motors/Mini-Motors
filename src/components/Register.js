@@ -25,8 +25,10 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
         setCurrentUser(username);
         window.localStorage.setItem("currentUser", username);
         location.href = "/";
-      } else if (results.error === "Requirements") {
+      } else if (results.message === "Username is already taken. Please choose another!") {
         alert("A user by that username already exists! Please create a different username or login if this is your username.")
+      } else if (results.message === "Password must be greater than 8 character!") {
+        alert("Your password must be greater than 8 characters.  Please try again.")
       }
     }
   }
