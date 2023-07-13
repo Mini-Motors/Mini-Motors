@@ -17,6 +17,7 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
       setIsAdmin(admin)
       const user = { username, password, isAdmin };
       const results = await registerUser(user);
+      console.log(results);
 
       if (!results.error) {
         setToken(results.token);
@@ -24,7 +25,7 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
         setCurrentUser(username);
         window.localStorage.setItem("currentUser", username);
         location.href = "/";
-      } else if (results.error === "A user by that username already exists") {
+      } else if (results.error === "Requirements") {
         alert("A user by that username already exists! Please create a different username or login if this is your username.")
       }
     }
