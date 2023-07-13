@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { registeredUser, createCart, myActiveCarts } from "../ajax-requests/index.js";
+import '../style/Login.css';
+
 
 const Login = (props) => {
   const { setToken, setCurrentUser, setCartId } = props;
@@ -34,25 +36,22 @@ const Login = (props) => {
   };
 
   return (
-    <form id="login" onSubmit={ handleSubmit }>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter Username"
-          onChange={(event) => setUsername(event.target.value)}
-        />
+      <div className="login-page">
+      <div className="form">
+        <div className="login">
+          <div className="login-header">
+            <h3>LOGIN</h3>
+            <p>Please enter your credentials to login.</p>
+          </div>
+        </div>
+        <form className="login-form">
+          <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)}/>
+          <input type="password" placeholder="password" onChange={(event) => setPassword(event.target.value)}/>
+          <button>login</button>
+          <p className="message">Not registered? <a href="/register">Create an account</a></p>
+        </form>
       </div>
-      <br />
-      <div>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    </div>
   )
 }
 
