@@ -15,7 +15,7 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
       alert("Passwords don't match!")
     } else {
       setIsAdmin(admin)
-      const user = { username, password, admin };
+      const user = { username, password, isAdmin };
       const results = await registerUser(user);
 
       if (!results.error) {
@@ -32,18 +32,18 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
 
   return (
     <div className="register-page">
-      <div className="form" onSubmit= { handleSubmit }>
+      <div className="form">
         <div className="register">
           <div className="register-header">
             <h3>REGISTER</h3>
             <p>Please enter your credentials to register.</p>
           </div>
         </div>
-        <form className="register-form">
+        <form className="register-form" onSubmit={ handleSubmit }>
           <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)} required />
           <input type="password" placeholder="password" onChange={(event) => setPassword(event.target.value)} required />
           <input type="password" placeholder="re-enter password" onChange={(event) => setConfirmPassword(event.target.value)} required/>
-          <button type="submit ">Register</button>
+          <button type="submit">Register</button>
           <br/>
           <br/>
           { !token
