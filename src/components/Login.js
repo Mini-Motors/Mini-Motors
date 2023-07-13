@@ -32,7 +32,7 @@ const Login = (props) => {
       } else {
         setCartId(activeCarts.id);
       }
-      //  location.href = "/";
+       location.href = "/";
     } else {
       window.alert("Username and/or Password not accepted!")
     }
