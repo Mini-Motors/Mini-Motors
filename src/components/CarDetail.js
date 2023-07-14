@@ -1,11 +1,19 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { updateCart } from '../ajax-requests/index'
+import { updateCart, myData, myActiveCarts, getCarById } from '../ajax-requests/index'
 
 const CarDetail = (props) => {
 
-const { currentCar, cartId, token } = props;
-const {id, manufacturer, model, color, price, type} = currentCar;
-const carId=id;
+const { currentCar, cartId, setCartId, token, currentUser } = props;
+
+const { id, manufacturer, model, color, price, type }= currentCar;
+
+async function getActiveCart () {
+  const activeCarts = await myActiveCarts(currentUser, token)
+  const idValue = activeCarts[0].id;
+  setCartId(idValue)
+}
+
+getActiveCart();
 
 /* Need isLoggedIn useState for addToCart? */
 
@@ -27,7 +35,8 @@ const carId=id;
             <h2 className="card-title center">Type</h2>
             <p className="card-text">{type}</p>
             <button className="btn" onClick={() => {
-              updateCart(token, cartId, carId)
+              console.log(token, cartId, id)
+              updateCart(token, cartId, {carId: id})
               console.log("add to cart onClick firing")
               }}>Add to Cart</button>
           </div>

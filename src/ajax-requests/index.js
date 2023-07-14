@@ -286,15 +286,15 @@ export const getCart = async () => {
 
   export const updateCart = async (token, cartId, carId) => {
     try {
-      const response = await fetch(`${BASE_URL}/cart/${cartId}`, {
-        method: "PATCH",
-        headers: {
-        'Content-Type': 'application/json',
+      const response = await fetch(`${BASE_URL}/cart/${cartId}/cars`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(
-          carId
-        )
+      },
+      body: JSON.stringify(
+        carId
+      )
       });
       const result = await response.json();
       console.log(result);

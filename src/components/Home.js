@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Home = (props) => {
 
-const { token, setCurrentCar, currentCar, APIHealth } = props;
+const { token, setCurrentCar, currentCar, APIHealth, updateCar } = props;
 const [ allCars, setAllCars ] = useState([]);
 let {carId} = useParams
 const navigate=useNavigate();
@@ -22,10 +22,10 @@ useEffect(() => {
   getAllCars();
 }, []);
 
-useEffect(() => {
-  console.log(allCars)
-  console.log(currentCar)
-},  [ allCars, currentCar ] );
+// useEffect(() => {
+//   console.log(allCars)
+//   console.log(currentCar)
+// },  [ allCars, currentCar ] );
 
   return (
     <Fragment>
@@ -41,9 +41,8 @@ useEffect(() => {
           <Fragment key={ car.id }>
             <div className="cards" >
               <div className="card-item"onClick={() => {
-                      setCurrentCar(car);
-                      console.log("onClick firing");
                       carId=car.id;
+                      updateCar(carId);
                       navigate(`/${carId}`);
                       }}>
                 <div className="card-body">

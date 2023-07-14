@@ -3,8 +3,8 @@ import { registeredUser, createCart, myActiveCarts } from "../ajax-requests/inde
 import '../style/Login.css';
 
 
-const Login = (props) => {
-  const { setToken, setCurrentUser, setCartId } = props;
+const Login = ({ setToken, setCurrentUser, setCartId, token }) => {
+  // const { setToken, setCurrentUser, setCartId } = props;
   const [ username, setUsername ] = useState("");
   const [ password, setPassword ] = useState("");
    
@@ -12,16 +12,19 @@ const Login = (props) => {
     event.preventDefault();
     const user = { username, password };
     const results = await registeredUser(user);  
-    console.log(results)
+
+    const setTok = async () => {
+      setToken(results.token)
+      console.log(token)
+    }
       
     if (results.message="you're logged in!") {
-      setToken(results.token);
-      window.localStorage.setItem("token",results.token);
+      setTok();
+      window.localStorage.setItem("token", results.token);
       setCurrentUser(username);
-      window.localStorage.setItem("currentUser",username);
+      window.localStorage.setItem("currentUser", username);
       
       const activeCarts = await myActiveCarts(username, results.token)
-      console.log(activeCarts)
 
       if (activeCarts.length === 0) {
         const cart = {
@@ -32,7 +35,7 @@ const Login = (props) => {
       } else {
         setCartId(activeCarts.id);
       }
-       location.href = "/";
+      //  location.href = "/";
     } else {
       window.alert("Username and/or Password not accepted!")
     }
