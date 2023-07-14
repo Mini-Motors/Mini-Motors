@@ -39,14 +39,11 @@ const App = () => {
       setToken(localToken);
       setCurrentUser(user);
       const { username } = await myData(localToken);
-      console.log(currentUser)
-
     }
   }
 
   const handleCarUpdate = async (value) => {
     const thisCar = await getCarById(value);
-    console.log(thisCar)
     setCurrentCar(thisCar);
   }
 

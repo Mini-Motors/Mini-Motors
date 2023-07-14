@@ -35,7 +35,6 @@ getActiveCart();
             <h2 className="card-title center">Type</h2>
             <p className="card-text">{type}</p>
             <button className="btn" onClick={() => {
-              console.log(token, cartId, id)
               updateCart(token, cartId, {carId: id})
               console.log("add to cart onClick firing")
               }}>Add to Cart</button>
