@@ -35,7 +35,7 @@ const Login = ({ setToken, setCurrentUser, setCartId, token }) => {
       } else {
         setCartId(activeCarts.id);
       }
-      //  location.href = "/";
+       location.href = "/";
     } else {
       window.alert("Username and/or Password not accepted!")
     }
