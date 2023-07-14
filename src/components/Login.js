@@ -12,22 +12,22 @@ const Login = (props) => {
     event.preventDefault();
     const user = { username, password };
     const results = await registeredUser(user);  
-    console.log(password)
+    console.log(results)
       
-    if (!results.error) {
+    if (results.message="you're logged in!") {
       setToken(results.token);
       window.localStorage.setItem("token",results.token);
-      console.log(results.token)
       setCurrentUser(username);
       window.localStorage.setItem("currentUser",username);
       
       const activeCarts = await myActiveCarts(username, results.token)
+      console.log(activeCarts)
 
-      if (!activeCarts) {
+      if (activeCarts.length === 0) {
         const cart = {
             favorites: false,
           }
-          const setCart = await createCart(results.token, cart);
+          const setCart = await createCart(cart, results.token);
           setCartId(setCart.id);
       } else {
         setCartId(activeCarts.id);

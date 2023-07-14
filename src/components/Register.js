@@ -20,11 +20,11 @@ const Register = ({ setToken, token, setCurrentUser, setIsAdmin, isAdmin }) => {
       console.log(results);
 
       if (!results.error) {
-        setToken(results.token);
-        window.localStorage.setItem("token", results.token);
-        setCurrentUser(username);
-        window.localStorage.setItem("currentUser", username);
-        location.href = "/";
+        // setToken(results.token);
+        // window.localStorage.setItem("token", results.token);
+        // setCurrentUser(username);
+        // window.localStorage.setItem("currentUser", username);
+        location.href = "/login";
       } else if (results.message === "Username is already taken. Please choose another!") {
         alert("A user by that username already exists! Please create a different username or login if this is your username.")
       } else if (results.message === "Password must be greater than 8 character!") {
