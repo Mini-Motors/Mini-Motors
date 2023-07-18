@@ -51,9 +51,9 @@ const App = () => {
     tokenCheck();
   }, [ token ]);
 
-  useEffect(() => {
-    handleCarUpdate();
-  }, []);
+  // useEffect(() => {
+  //   handleCarUpdate();
+  // }, []);
 
   return (
     <div className="app-container">
