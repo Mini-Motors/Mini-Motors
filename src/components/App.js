@@ -99,6 +99,8 @@ const App = () => {
             isActive={ isActive } 
             setIsFavorites={ setIsFavorites } 
             isFavorites={ isFavorites } 
+            currentUser={ currentUser }
+            token={token}
           />}
         />
 

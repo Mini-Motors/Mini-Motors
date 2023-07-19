@@ -8,7 +8,8 @@ const {
   getCartById,
   updateCart,
   addCarToCartItems,
-  getCarsById } = require('../db/db_adaptors')
+  getCarsById,
+} = require('../db/db_adaptors')
 
 // GET /api/cart
 cartRouter.get('/', requireUser, requireAdmin, async (req, res, next) => {

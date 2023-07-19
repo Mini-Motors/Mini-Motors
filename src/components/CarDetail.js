@@ -38,11 +38,21 @@ getActiveCart();
               updateCart(token, cartId, {carId: id})
               console.log("add to cart onClick firing")
               }}>Add to Cart</button>
+              <button
+              className="btn"
+              onClick={() => {
+                window.location.href = "/cart";
+              }}
+            >
+              Go to Cart
+            </button>
           </div>
         </div>
       </div>
     </Fragment>
   )
 };
+
+// ADDED ADDITIONAL BUTTON FOR CART ROUTE//
 
 export default CarDetail;

@@ -19,7 +19,6 @@ export async function getAPIHealth() {
 
 // AJAX Fetch REQUESTS HERE:
 
-
 // USERS
 export const registerUser = async (user) => {
   try {
