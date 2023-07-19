@@ -12,6 +12,8 @@ const Cart = (props) => {
   const localToken = window.localStorage.getItem("token");
   const user = window.localStorage.getItem("currentUser");
 
+
+  
   useEffect(() => {
     async function getCartItems() {
       try {

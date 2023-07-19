@@ -64,6 +64,7 @@ const App = () => {
           <Home 
             APIHealth={ APIHealth }
             token={ token } 
+            setToken={ setToken }
             isAdmin={ isAdmin } 
             setCurrentCar={ setCurrentCar } 
             currentCar={ currentCar } 

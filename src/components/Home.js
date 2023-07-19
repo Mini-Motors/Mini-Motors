@@ -1,14 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { allCars as fetchAllCars } from '../ajax-requests/index.js'
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import '../style/App.css';
 
 const Home = (props) => {
 
-const { token, setCurrentCar, currentCar, APIHealth, updateCar } = props;
+const { token, setCurrentCar, currentCar, APIHealth, updateCar, setToken } = props;
 const [ allCars, setAllCars ] = useState([]);
 let {carId} = useParams
 const navigate=useNavigate();
+
+function logout() {
+  setToken('');
+  window.localStorage.removeItem("token");
+  window.localStorage.removeItem("currentUser");
+}
 
 useEffect(() => {
   async function getAllCars () {
@@ -37,12 +43,23 @@ useEffect(() => {
       <nav className="main-nav">
           <ul className="horizontal nav-list">
             <li><a href="">Big Deals </a></li>
-
+            
             <li><a href="">Top Brands </a></li>
             <li><a href="">Suggestions </a></li>
             <li><a href="">Help & Contact </a></li>
-            <li><a href="/login">Log In </a></li>
-            <li><a href="/register">Register </a></li>
+
+            {!token 
+            ?
+              <>
+              <li><a href="/login">Log In </a></li>
+              <li><a href="/register">Register </a></li>
+              </>
+            :
+              <Link to="/" onClick={() => { logout() }}>Logout</Link>
+            }
+
+
+            
             <li><a href="/cart"><i className="material-icons">shopping_cart </i></a></li>
           </ul>
           <ul className="horizontal nav-list full-width">
