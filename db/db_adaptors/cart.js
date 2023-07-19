@@ -228,5 +228,5 @@ module.exports = {
   getFavoriteCartsByCarId,
   getActiveCartsByCarId,
   updateCart,
-  destroyCart
+  destroyCart,
 };
