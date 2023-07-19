@@ -34,33 +34,28 @@ useEffect(() => {
 
       <h1> All Mini Motor Listings </h1>
       
-      <nav class="main-nav">
-          <ul class="horizontal nav-list">
-            <li><a href="">Big Deals</a></li>
-            <li><a href="">Top Brands</a></li>
-            <li><a href="">Suggestions</a></li>
-            <li><a href="">Help & Contact</a></li>
-            <li><a href="/login">Log In</a></li>
-            <li><a href="/register">Register</a></li>
-            <li><a href="/cart"><i class="material-icons">shopping_cart</i></a></li>
+      <nav className="main-nav">
+          <ul className="horizontal nav-list">
+            <li><a href="">Big Deals </a></li>
+
+            <li><a href="">Top Brands </a></li>
+            <li><a href="">Suggestions </a></li>
+            <li><a href="">Help & Contact </a></li>
+            <li><a href="/login">Log In </a></li>
+            <li><a href="/register">Register </a></li>
+            <li><a href="/cart"><i className="material-icons">shopping_cart </i></a></li>
           </ul>
-          <ul class="horizontal nav-list full-width">
+          <ul className="horizontal nav-list full-width">
             
           </ul>
-          <ul class="horizontal nav-list short-width">
-            <li><a href=""><i class="material-icons">menu</i></a></li>
+          <ul className="horizontal nav-list short-width">
+            <li><a href=""><i className="material-icons">menu</i></a></li>
           </ul>
         </nav>
-        <nav class="sub-nav">
-          <span class="company-name">
+        <nav className="sub-nav">
+          <span className="company-name">
             Mini-motor
           </span>
-          <form class="search-form" action="/search">
-            <input type="text" name="search-term" placeholder="search">
-            <button type="submit"><i class="material-icons">search</i></button>
-            </input>
-          </form>
-          <a class="credit-offer" href="/credit">0% Financing 24 Months</a>
         </nav>
 
       { allCars && allCars.map((car) => {
