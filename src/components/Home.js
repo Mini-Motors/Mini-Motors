@@ -51,16 +51,16 @@ useEffect(() => {
             {!token 
             ?
               <>
-              <li><a href="/login">Log In </a></li>
-              <li><a href="/register">Register </a></li>
+                <li><a href="/login">Log In </a></li>
+                <li><a href="/register">Register </a></li>
               </>
             :
-              <Link to="/" onClick={() => { logout() }}>Logout</Link>
-            }
-
-
+              <>
+                <Link to="/" onClick={() => { logout() }}>Logout</Link>
+                <li><a href="/cart"><i className="material-icons">shopping_cart </i></a></li>
+              </>
+            } 
             
-            <li><a href="/cart"><i className="material-icons">shopping_cart </i></a></li>
           </ul>
           <ul className="horizontal nav-list full-width">
             
