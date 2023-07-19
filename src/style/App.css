@@ -118,3 +118,96 @@ h1, h5 {
   background: #ADD8E6;
   color: #333;
 }
+
+.main-nav, .sub-nav{
+  display: flex;
+  text-decoration: none;
+}
+.main-nav{
+  display: flex;
+  background-color:#255;
+  justify-content: space-between;
+}
+
+
+/* HEADER */
+@media (max-width: 768px){
+  .horizontal.nav-list.full-width{
+      display:none;
+  }
+  .horizontal.nav-list.short-width{
+      display:flex;
+  }
+}
+@media (min-width: 769px){
+  .horizontal.nav-list.full-width{
+      display:flex;
+  }
+  .horizontal.nav-list.short-width{
+      display:none;
+  }
+}
+.nav-list{
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  text-decoration: none;
+  list-style: none;
+}
+header a{
+  text-decoration: none;
+  color: white;
+  display: flex;
+  margin: 5px;
+}
+.search-form{
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+}
+.search-form input{
+  padding: 5px;
+  flex: 1;
+  margin: 5px;
+}
+.search-form button{
+  padding: 5px;
+  margin: 5px;
+}
+.company-name{
+  font-size: 30;
+  text-align: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.credit-offer{
+  text-decoration: none;
+  background-color: cornflowerblue;
+  padding: 5px;
+  font-size: 20;
+  flex-shrink: 0;
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
