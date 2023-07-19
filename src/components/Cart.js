@@ -39,6 +39,10 @@ return (
                   <button>
                     Checkout
                   </button>
+                   <button onClick={() => {
+                      location.href="/"
+                      }}> Go Home
+                  </button>
                 </div>
     </div>
     {cartItems.map((cartItem) => (
