@@ -1,10 +1,9 @@
 import axios from 'axios';
 const  { BASEAPI_URL }  = process.env;
 
-// export const BASE_URL = `http://localhost:4000/api` || BASEAPI_URL ;
-export const BASE_URL = BASEAPI_URL || `http://localhost:4000/api` ;
 
 // export const BASE_URL = 'http://localhost:4000/api';
+export const BASE_URL = 'https://minimotors.onrender.com/api';
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
