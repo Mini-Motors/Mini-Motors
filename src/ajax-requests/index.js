@@ -1,7 +1,8 @@
 import axios from 'axios';
-const  BASEAPI_URL  = process.env;
+const  { BASEAPI_URL }  = process.env;
 
-export const BASE_URL = `http://localhost:4000/api` || BASEAPI_URL ;
+// export const BASE_URL = `http://localhost:4000/api` || BASEAPI_URL ;
+export const BASE_URL = BASEAPI_URL || `http://localhost:4000/api` ;
 
 // export const BASE_URL = 'http://localhost:4000/api';
 
